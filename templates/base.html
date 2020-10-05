@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41437909-2"></script>
+    {% block head %}
+
+    {% endblock %}
+
+    <!-- FAVICON LINK -->
+    <link rel="icon" href="static/images/favicon.png" type="image/png">
+    <!-- STYLESHEETS -->
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/bootstrap.min.css"/>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/font-awesome/css/font-awesome.css"/>
+    <!-- MAGNIFIC LIGHT BOX -->
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/magnific/magnific-popup.css">
+    <!-- CAROUSEL STYLE LINK -->
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="static/css/vendor/owl-carousel/carousel.css">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/custom/style.css">
+    <meta name="google-site-verification" content="ap3wOjOY601MXhgdAvuXlKwVNFZoFZVSCqLiQ2AzrCw"/>
+
+
+</head>
+
+
+<body data-spy="scroll" data-target="#navbarSupportedContent" data-offset="100">
+
+<!--================================= NAVIGATION START ==========================================-->
+<nav class="topbar navbar navbar-default navbar-toggleable-md valign-menu fixed-top navbar-expand-lg clearfix navbar-light clearfix slider-menu"
+     id="top-nav">
+    <div class = "container-fluid" style="height: 70px;">
+        <div class="logo-image">
+            <!-- <a href="{{ url_for('index') }}"><img src="static/images/images/logo.png" alt="logo-image"
+                             data-at2x="images/200x80x1@2x.png"/></a> -->
+            <h2 style="
+            color: #E36937;
+            font-weight: bold;
+        ">Data Analytics</h2>
+        </div>
+        <div class="navbar-right nav" style ="float: right!important;">
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav" id="menu_1">
+                    <li class="menu">
+                        <a href= "{{ url_for('index') }}" class="pagescroll nav-link">
+                            HOME
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="#about" class="pagescroll nav-link">
+                            ABOUT US
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="#services" class="pagescroll nav-link">
+                            TECHNOLOGIES
+                        </a>
+                    </li>
+
+                    <li class="menu">
+                        <a href="#features" class="pagescroll nav-link">
+                            PRODUCTS
+                        </a>
+                        <ul class="dropdown">
+                            <li><a href="/twitterdata"><b>TWITTER ANALYTICS</b></a></li>
+                            <li><a href="/textsummarypage"><b>TEXT SUMMARIZATION</b></a></li>
+<!--                            <li><a href="/chatbot"><b>CHATBOT</a></b></li>-->
+                            <li><a href="/sentimentpage"><b>SENTIMENTICO</b></a></li>
+                            <li><a href="/Spacy"><b>NLP Analysis</b> </a></li>
+                            <li><a href="/HateSpeech"><b>HATE SPEECH</b></a></li>
+                            <li><a href="/dataset_info"><b>TIME SERIES</b></a></li>
+                            
+                        </ul>
+                        <style type="text/css">
+                                         ul{
+        padding: 0;
+              /*background: white;*/
+        background-color: transparent;
+    }
+    ul li{
+        display: inline-block;
+        position: relative;
+        text-align: left;
+
+    }
+    ul li a{
+        display: block;
+        padding: 8px 15px;
+        background-color: transparent;
+        text-decoration: none;
+
+    }
+    ul li a:hover{
+        color: grey;
+
+    }
+    ul li ul.dropdown{
+        min-width: 100%; /* Set width of the dropdown */
+        color: #212529;
+        background: white;
+        font-family: 'Poppins', sans-serif, Arial, Verdana, 'Trebuchet MS';
+        font-size: 15px;
+        display: none;
+        position: absolute;
+        z-index: 1030;
+        left: 0;
+        line-height: 21px;
+        font-style: bold;
+    }
+    ul li:hover ul.dropdown{
+        display: block; /* Display the dropdown */
+    }
+    ul li ul.dropdown li{
+        display: block;
+    }
+
+
+
+                        </style>
+
+
+                    </li>
+                    <li class="menu">
+                        <a href="#what" class="pagescroll nav-link">
+                            WHAT WE DO
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="/post_API" class="nav-link">
+                            API's
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="#contact" class="pagescroll nav-link">
+                            REQUEST DEMO
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<!--================================= NAVIGATION END ==========================================-->
+{% block content %}
+
+{% endblock %}
+
+
+<!--================================= CONTACT FORM ENDS ============================================-->
+<!--================================= FOOTER END =============================================-->
+<section class=" footer-bg">
+    <div class="container white-text" style="margin-top: 20px;">
+        <div class="footer-br footer-br-bottom"></div>
+        <p class="text-center footer-copyright">© 2019, All Rights Reserved</p>
+    </div>
+</section>
+
+
+<!-- JQUERY LIBRARY -->
+<script type="text/javascript" src="static/js/vendor/jquery.min.js"></script>
+<!-- BOOTSTRAP -->
+<script type="text/javascript" src="static/js/vendor/bootstrap.min.js"></script>
+<!-- SLIDER JS FILES -->
+<script type="text/javascript" src="static/js/vendor/slider/owl.carousel.min.js"></script>
+<script type="text/javascript" src="static/js/vendor/slider/owl-slider.js"></script>
+<!-- MAGNIFIC LIGHT BOX -->
+<script type="text/javascript" src="static/js/vendor/magnific/jquery.magnific-popup.js"></script>
+<!-- SHUFFLE JS FILES -->
+<script type="text/javascript" src="static/js/vendor/shuffle/modernizr.custom.min.js"></script>
+<script type="text/javascript" src="static/js/vendor/shuffle/jquery.shuffle.js"></script>
+<script type="text/javascript" src="static/js/vendor/shuffle/page.js"></script>
+<script type="text/javascript" src="static/js/vendor/shuffle/evenheights.js"></script>
+<script type="text/javascript" src="static/js/vendor/shuffle/homepage.js"></script>
+<!-- SUBSCRIBE MAILCHIMP -->
+<script type="text/javascript" src="static/js/vendor/subscribe/subscribe_validate.js"></script>
+<!-- FORM VALIDATION -->
+<script type="text/javascript" src="static/js/vendor/validate/jquery.validate.min.js"></script>
+<!-- NUMBER VALIDATION JS FILES -->
+<script type="text/javascript" src="static/js/vendor/number.js"></script>
+<!-- COUNTER JS FILES -->
+<script type="text/javascript" src="static/js/vendor/counter/counter-lib.js"></script>
+<script type="text/javascript" src="static/js/vendor/counter/jquery.counterup.min.js"></script>
+<!-- RETINA JS FILES -->
+<script type="text/javascript" src="static/js/vendor/retina.js"></script>
+<!-- THEME JS -->
+<script type="text/javascript" src="static/js/custom/custom.js"></script>
+
+</body>
+</html>

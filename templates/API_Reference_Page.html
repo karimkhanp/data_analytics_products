@@ -1,0 +1,683 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script>
+<script src='//static.codepen.io/assets/editor/live/css_live_reload_init-e9c0cc5bb634d3d14b840de051920ac153d7d3d36fb050abad285779d7e5e8bd.js'></script>
+<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script>
+<script src='//static.codepen.io/assets/editor/live/css_live_reload_init-e9c0cc5bb634d3d14b840de051920ac153d7d3d36fb050abad285779d7e5e8bd.js'></script>
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+
+<meta property="og:url" content="http://34.93.145.122:5003/search"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Twitrendica"/>
+<meta property="og:description" content="A one stop for twitter analytics"/>
+<meta property="og:image" content="http://34.93.145.122:5003/static/images/images/twitrendica.png"/>
+
+<link rel="canonical" href="https://codepen.io/huange/pen/rbqsD"/>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+    <style class="cp-pen-styles">
+    h1{
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table{
+      width:100%;
+    }
+
+    tbody{
+      height:600px;
+      overflow-x:auto;
+      margin-top: 0px;
+
+    }
+    th{
+      padding: 20px 15px;
+      font-size: 12px;
+      color : black;
+      text-transform: uppercase;
+      text-align-last: center;
+      font-weight: bold;
+    }
+    td{
+      padding: 15px;
+      text-align: center;
+      vertical-align:middle;
+      font-weight: 300;
+      font-size: 12px;
+      color : black;
+
+    }
+
+
+    /* demo styles */
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+    body{
+      background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+      background: linear-gradient(to right, #25c481, #25b7c4);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    section{
+      margin: 10px;
+    }
+
+    ::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+    .search {
+      padding-top: 10%;
+      width: 97%;
+      position: relative;
+    }
+    .searchTerm {
+      float: left;
+      width: 100%;
+      border: 3px solid #00B4CC;
+      padding: 5px;
+      height: 36px;
+      border-radius: 5px;
+      outline: none;
+      color: #9DBFAF;
+    }
+
+    .searchTerm:focus{
+      color: #00B4CC;
+    }
+    .searchButton {
+      position: absolute;
+      right: -45px;
+      width: 40px;
+      height: 36px;
+      border: 1px solid #00B4CC;
+      background: #00B4CC;
+      text-align: center;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<style>
+    html{
+        scroll-behavior : smooth;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="section-padding section-1-bg">
+    <div class="container">
+        <div class="heading-div-1 text-center">
+            <h2>DATA INSIGHTO API's</h2>
+            <p>The DATAINSIGHTO API is a REST API, and consists of JSON requests and response.</p>
+            <div class="underline-ul text-center">
+                <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png">
+            </div>
+        </div>
+        <div class="container">
+            <br>
+            <div class="row rowsafari">
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <div class="res-col-center res-services-center service-col-br">
+                        <h4 style = "text-align: center;" class="content-bottom-space1"><a href="#twitteranalytics">TWITTER ANALYTICS</a></h4>
+                        <div id="twitteranalytics" class="distab-cell-top services-col-img">
+                            <img src="static/images/rumour.png" alt="icon" data-at2x="static/images/80x80x1@2x.png"/
+                            class="imgwh">
+                        </div>
+                        <div class="distab-cell-top services-col-content">
+                            <p>We analyze Web and social content to identify rumour suspected news</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 res-pad30">
+                    <div class="res-col-center res-services-center service-col-br">
+                        <h4 style = "text-align: center;" class="content-bottom-space1"><a href="#textclassification">TEXT CLASSIFICATION</a></h4>
+                        <div class="distab-cell-top services-col-img">
+                            <img src="static/images/text.png" alt="icon" data-at2x="static/static/images/80x80x2@2x.png"/
+                            class="imgwh">
+                        </div>
+                        <div class="distab-cell-top services-col-content">
+                            <p>Classify your text data in meaningful categories to get better insight</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 res-top30">
+                    <div class="res-col-center res-services-center service-col-br">
+                        <h4 style = "text-align: center;" class="content-bottom-space1"><a href="#sentimentanalysis">SENTIMENT & EMOTION ANALYSIS</a></h4>
+                        <div class="distab-cell-top services-col-img">
+                            <img src="static/images/sentiment.png" alt="icon" data-at2x="static/images/80x80x3@2x.png"/
+                            class="imgwh">
+                        </div>
+                        <div  class="distab-cell-top services-col-content">
+                            <p>Identify the emotion from text using Machine learning and NLP</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <br>
+
+<!--==========================================================================================================-->
+            <div  >
+                <h2  style="padding-top : 7% ;padding-bottom : 3%;text-align: center; ">Twitter Analysis API's</h2>
+                <p> Twitter Analytics shows you how your audience is responding to your content,
+                    what's working, and what's not. Use this data to optimize your future Twitter campaigns
+                    and get better results.</p>
+                <div class="alert alert-primary container" role="alert" style="margin-top: 20px">
+                    <p style="font-size: 18px;
+                            font-weight: 8px;">Post your data for Twitter Analysis at
+                        <i class="fa fa-arrow-right" style="font-size:16px"></i>
+                        <a href="#" style="font-size: 18px; font-weight: 8px; color: #e36937;"> http://127.0.0.1:5000/twitterdata/twitterAPI </a>
+                    </p>
+                </div>
+                <br>
+                <br>
+                <p>A sample <code translate="no" dir="ltr">TwitterAnalysisAPI</code> response to the
+                    <a href="#sentiment-request">Twitter keyword</a> is shown below:</p>
+                <div>
+
+                    <div style="padding-top : 2%" class="row rowsafari">
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-1 order-1 res-top20">
+                            <div class="pad-right25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:1px ; ">
+                                    <br>
+                                    <br><br><br><br><br><br><br>
+                                    <h4>Request</h4>
+                                    <br>
+                                    <devsite-code>
+                                    <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                         is-upgraded="" style="margin-bottom: 0px;"><span class="pun">{</span> <span
+                                            class="pln"><br>&nbsp; </span><span class="str">"keyword"</span><span
+                                            class="pun">:</span><span class="pln"> </span><span
+                                            class="lit">"Twitter"</span><span class="pun">,</span><span class="pln"><br>&nbsp; </span><span
+                                            class="str">"tweets"</span><span class="pun">:</span><span
+                                            class="pln"> </span><span class="str">1</span><span class="pun"><span
+                                            class="pln"><br>&nbsp; </span></span><span
+                                            class="pun">}</span><br><br><br><br><br><br><br><br></pre>
+                                    </devsite-code>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-2 order-2">
+                            <div class="pad-left25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:3% ;  ">
+                                    <h4>Response</h4>
+                                    <devsite-code>
+                                <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                     is-upgraded="" style="margin-bottom: 0px;">
+                                        <p style="
+                                            padding-bottom: 0px;
+                                            border-bottom-width: 0px;
+                                            margin-bottom: 0px;
+                                        "> {
+    "Tweet Created": [
+            {
+            "tweet created": "2020-07-01 18:13:13",
+            "Full Tweet": "RT @carrybantai: Students to
+                                NTA :-\#RIPNTAhttps://t.co/jLKSeCQhYR",
+            "sentiment": "Neutral",
+            "emoji": "\\ud83d\\ude10",
+            "retweet count": 13,
+            "favourite count": 0,
+            "User name": "Shubham",
+            "image": "http://abs.twimg.com/sticky/
+                                    default_profile_images/default_profile_normal.png",
+            "folloer": 2,
+            "friend count": 0
+            },
+
+      ]
+}</p>
+                                </pre>
+                                    </devsite-code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p style="padding-top : 6% ">Twitter analysis attempts to determine the overall Tweets from the twitter.
+                    This analysis also gives us
+                    sentiment of the Tweet posted</p>
+
+                <h4> Twitter analysis response fields </h4>
+
+
+                <ul style="padding-top : 2%">
+                    <li><code translate="no" dir="ltr">tweet created : </code> Containes the Date and Time stamp of the
+                        tweet created
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">Full Tweet : </code> The data of the Tweet</li>
+                    <br>
+                    <li><code translate="no" dir="ltr">sentiment : </code> The Sentiment data of the tweet , Option :
+                        [postive, neutral, negative]
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">retweet count : </code> The retweeted count of the particular
+                        tweet
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">favourite count : </code> The favourites count of the particular
+                        tweet
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">User name : </code> The Username of the profile</li>
+                    <br>
+                    <li><code translate="no" dir="ltr">image : </code> The image link of the profile picture</li>
+                    <br>
+                    <li><code translate="no" dir="ltr">folloer : </code> The Number of followers the user contain in
+                        twitter
+                        account
+                    </li>
+                    <br>
+                    <li id="textclassification" ><code translate="no" dir="ltr">friend count :</code>The Number of friends the user contain in
+                        twitter account
+                    </li>
+                    <br>
+
+                </ul>
+            </div>
+<!--==========================================================================================================-->
+            <div  >
+                <h2  style="padding-top : 7% ; padding-bottom : 3%; text-align: center; ">Text classification API's</h2>
+                <p> Text Classification is one of the most challenging and interesting
+                problems in the field of Natural Language Processing (NLP). Use
+                our API to Quickly analyse your Text or paragraph.</p>
+                <div class="alert alert-primary container" role="alert" style="margin-top: 20px">
+                    <p style="font-size: 18px;
+                            font-weight: 8px;">Post your link for Text Classification at
+                        <i class="fa fa-arrow-right" style="font-size:16px"></i>
+                        <a href="#" style="font-size: 18px; font-weight: 8px; color: #e36937;">http://127.0.0.1:5000/textsummarypage/link </a>
+                    </p>
+                </div>
+                <div class="alert alert-primary container" role="alert" style="margin-top: 20px">
+                    <p style="font-size: 18px;
+                            font-weight: 8px;">Post your paragraph for Text Classification at
+                        <i class="fa fa-arrow-right" style="font-size:16px"></i>
+                        <a href="#" style="font-size: 18px; font-weight: 8px; color: #e36937;">http://127.0.0.1:5000/textsummarypage/para </a>
+                    </p>
+                </div>
+                <br>
+                <br>
+                <p>A sample <code translate="no" dir="ltr">Text Classification</code> response to the
+                    <a href="#sentiment-request">URL provided</a> is shown below:</p>
+                <div>
+
+                    <div style="padding-top : 2%" class="row rowsafari">
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-1 order-1 res-top20">
+                            <div class="pad-right25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:1px ; ">
+                                    <br>
+                                    <br><br><br><br><br>
+                                    <h4>Request</h4>
+                                    <br>
+                                    <devsite-code>
+                                    <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                         is-upgraded="" style="margin-bottom: 0px;"><span class="pun">{</span> <span
+                                            class="pln"><br>&nbsp; </span><span class="str">"url"</span><span
+                                            class="pun">:</span><span class="pln"> </span><span
+                                            class="lit">"https://www.lipsum.com/"</span><span class="pun">,</span><span class="pln"><br>&nbsp; </span><span
+                                            class="str">"ratio"</span><span class="pun">:</span><span
+                                            class="pln"> </span><span class="str">20</span><span class="pun"><span
+                                            class="pln"><br>&nbsp; </span></span><span
+                                            class="pun">}</span><br><br><br><br><br></pre>
+                                    </devsite-code>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-2 order-2">
+                            <div class="pad-left25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:3% ;  ">
+                                    <h4>Response</h4>
+                                    <devsite-code>
+                                <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                     is-upgraded="" style="margin-bottom: 0px;">
+                                        <p style="
+                                            padding-bottom: 0px;
+                                            border-bottom-width: 0px;
+                                            margin-bottom: 0px;
+                                        "> {
+    "Original_text":"There are many variations of passages of Lorem Ipsum available,
+                 but the majority have suffered alteration in some form........
+    "Summary": "There are many variations of passages of Lorem
+            Ipsum available, but the majority have suffered alteration
+            in some form, by injected humour.........
+    "Keywords": ["ipsum","words","dolor","dolore","lorem",......]
+    "NERs":     {"location": ["Virginia","Duis","culpa","et quasi",.....}
+             "person": ["H. Rackham","Richard McClintock","quis nostrud",.....]
+             "date":["the 1500s","1.10.33","1914","2000 years old","1.10.33","1914","1914",...]
+                  "organization": ["Lorem Ipsum","Lorem Ipsum","Lorem Ipsum",...]
+}
+</p>
+                                </pre>
+                                    </devsite-code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--                =========================================-->
+                <br>
+                <br>
+                <p>A sample <code translate="no" dir="ltr">Text Classification</code> response to the
+                    <a href="#sentiment-request">PARAGRAPH provided</a> is shown below:</p>
+                <div>
+
+                    <div style="padding-top : 2%" class="row rowsafari">
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-1 order-1 res-top20">
+                            <div class="pad-right25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:1px ; ">
+                                    <br>
+                                    <br><br><br><br><br>
+                                    <h4>Request</h4>
+                                    <br>
+                                    <devsite-code>
+                                    <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr" is-upgraded="" style="margin-bottom: 0px;"><span class="pun">{</span> <span class="pln"><br>&nbsp; </span><span class="str">"paragraph"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">"During times of change, many of us find comfort in simple pleasures. Like a great burger.
+           Yet, some of those simple pleasures have been compromised by the dramatic changes caused by COVID-19......"</span><span class="pun">,</span><span class="pln"><br>&nbsp; </span><span class="str">"ratio"</span><span class="pun">:</span><span class="pln"> </span><span class="str">20</span><span class="pun"><span class="pln"><br>&nbsp; </span></span><span class="pun">}</span><br><br><br><br><br></pre>
+                                    </devsite-code>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-2 order-2">
+                            <div class="pad-left25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:3% ;  ">
+                                    <h4>Response</h4>
+                                    <devsite-code>
+                                <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                     is-upgraded="" style="margin-bottom: 0px;">
+                                        <p style="
+                                            padding-bottom: 0px;
+                                            border-bottom-width: 0px;
+                                            margin-bottom: 0px;
+                                        "> {
+    "Original_text":"During times of change, many of us find comfort in simple pleasures. Like a great burger,
+                Yet, some of those simple pleasures have been compromised by the dramatic changes caused by COVI
+                D-19, including the disruption of the animal meat industry. Meat plants are closing
+                causing meat to be harder to find and its prices to rise.
+                Some grocers are limiting the amount of meat shoppers can buy to curb...."
+
+    "Summary": "Yet, some of those simple pleasures have been compromised by the dramatic
+            changes caused by COVID-19, including the disruption of the animal meat industry.
+            "But right now, you may be asking: What do I do without meat?Now is the time to try
+            plant-based protein...."
+
+}
+</p>
+                                </pre>
+                                    </devsite-code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p style="padding-top : 6% ">Text summarization gives us the short data which is been set by Machine
+                Learning algorithms and NLP. This also provides NER, Highlighting words and Sentence score</p>
+
+                <h4> Text Classification response fields </h4>
+
+
+                <ul style="padding-top : 2%">
+                    <li><code translate="no" dir="ltr">Original : </code> This is the original content provided by the user
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">Summary : </code> The Classified text of the original content</li>
+                    <br>
+                    <li><code translate="no" dir="ltr">Keywords : </code>The main and tagging keywords available for the content
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">NER : </code> Named Entity ratio(Nouns) of the content
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">location : </code> Any Location based keywords in the content
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">Person : </code> Any person names available in the content </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">date : </code> The dates availables through out the input</li>
+                    <br>
+                    <li id="sentimentanalysis"><code translate="no" dir="ltr">organisation : </code> The organisations involved in the content.
+                    </li>
+                    <br>
+
+                </ul>
+            </div>
+<!--==========================================================================================================-->
+            <div  >
+                <h2  style="padding-top : 7% ; padding-bottom : 3%; text-align: center;">Sentiment Analysis API's</h2>
+                <p> Sentiment analysis is the interpretation and classification of emotions
+                    (positive, negative and neutral) using text analysis techniques.
+                    Sentiment analysis allows businesses to identify customer sentiment
+                    in online conversations and feedback.</p>
+                <div class="alert alert-primary container" role="alert" style="margin-top: 20px">
+                    <p style="font-size: 18px;
+                            font-weight: 8px;">Post your link for Sentiment Analysis at
+                        <i class="fa fa-arrow-right" style="font-size:16px"></i>
+                        <a href="#" style="font-size: 18px; font-weight: 8px; color: #e36937;">http://127.0.0.1:5000/sentimentanalysis/link </a>
+                    </p>
+                </div>
+                <div class="alert alert-primary container" role="alert" style="margin-top: 20px">
+                    <p style="font-size: 18px;
+                            font-weight: 8px;">Post your paragraph for Sentiment Analysis at
+                        <i class="fa fa-arrow-right" style="font-size:16px"></i>
+                        <a href="#" style="font-size: 18px; font-weight: 8px; color: #e36937;">http://127.0.0.1:5000/sentimentanalysis/para </a>
+                    </p>
+                </div>
+
+                <br>
+                <br>
+                <p>A sample <code translate="no" dir="ltr">Sentiment Analysis</code> response to the
+                    <a href="#sentiment-request">Sample URL</a> is shown below:</p>
+                <div>
+
+                    <div style="padding-top : 2%" class="row rowsafari">
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-1 order-1 res-top20">
+                            <div class="pad-right25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:1px ; ">
+                                    <br>
+                                    <br><br><br><br><br>
+                                    <h4>Request</h4>
+                                    <br>
+                                    <devsite-code>
+                                    <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                         is-upgraded="" style="margin-bottom: 0px;"><span class="pun">{</span> <span
+                                            class="pln"><br>&nbsp; </span><span class="str">"url"</span><span
+                                            class="pun">:</span><span class="pln"> </span><span
+                                            class="lit">"https://www.lipsum.com/"</span><span class="pun"></span><span class="pln"><br>&nbsp; </span><span
+                                            class="str"></span><span class="pun"></span><span
+                                            class="pln"> </span><span class="str"></span><span class="pun"><span
+                                            class="pln"><br>&nbsp; </span></span><span
+                                            class="pun">}</span><br><br><br><br><br></pre>
+                                    </devsite-code>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-2 order-2">
+                            <div class="pad-left25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:3% ;  ">
+                                    <h4>Response</h4>
+                                    <devsite-code>
+                                <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                     is-upgraded="" style="margin-bottom: 0px;">
+                                        <p style="
+                                            padding-bottom: 0px;
+                                            border-bottom-width: 0px;
+                                            margin-bottom: 0px;
+                                        "> {
+    "Summary": "There are many variations of passages of Lorem
+            Ipsum available, but the majority have suffered alteration
+            in some form, by injected humour.........
+    "Keywords": ["ipsum","words","dolor","dolore","lorem","pleasure","pleasures",
+                         "non","ipsum","dolor sit",......]
+    "Sentimentscore": 5
+}
+</p>
+                                </pre>
+                                    </devsite-code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <p>A sample <code translate="no" dir="ltr">Sentiment Analysis</code> response to the
+                    <a href="#sentiment-request">PARAGRAPH provided</a> is shown below:</p>
+                <div>
+
+                    <div style="padding-top : 2%" class="row rowsafari">
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-1 order-1 res-top20">
+                            <div class="pad-right25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:1px ; ">
+                                    <br>
+                                    <br><br><br><br><br>
+                                    <h4>Request</h4>
+                                    <br>
+                                    <devsite-code>
+                                    <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr" is-upgraded="" style="margin-bottom: 0px;"><span class="pun">{</span> <span class="pln"><br>&nbsp; </span><span class="str">"paragraph"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">"During times of change, many of us find comfort in simple pleasures. Like a great burger.
+           Yet, some of those simple pleasures have been compromised by the dramatic changes caused by COVID-19......"</span><span class="pun"></span><span class="pln"><br>&nbsp; </span><span class="str"></span><span class="pun"></span><span class="pln"> </span><span class="str"></span><span class="pun"><span class="pln"><br>&nbsp; </span></span><span class="pun">}</span><br><br><br><br><br></pre>
+                                    </devsite-code>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 order-lg-2 order-2">
+                            <div class="pad-left25">
+                                <div class="abt-col" style=" padding-left: 30px; padding-top:3% ;  ">
+                                    <h4>Response</h4>
+                                    <devsite-code>
+                                <pre class="lang-javascript" suppresswarning="true" translate="no" dir="ltr"
+                                     is-upgraded="" style="margin-bottom: 0px;">
+                                        <p style="
+                                            padding-bottom: 0px;
+                                            border-bottom-width: 0px;
+                                            margin-bottom: 0px;
+                                        "> {
+    "Summary": "During times of change, many of us find comfort in simple pleasures."
+                        Like a great burger.Yet, some of those simple pleasures have been compromised by the dramatic changes caused by COVID-19
+                        including the disruption of the animal meat industry.........."
+    "Keywords": ["entirely dependent","supply chains","term","challenge","pandemic","exponentially","complex","grow","production teams working","staggered breaks"......]
+    "Sentimentscore": 5
+
+}
+</p>
+                                </pre>
+                                    </devsite-code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p style="padding-top : 6% ">Time to determine whether a piece of writing is positive, negative or neutral.
+                    works with the feedback and paragraphs too.</p>
+
+                <h4> Sentiment analysis response fields </h4>
+
+
+                <ul style="padding-top : 2%">
+                    <li><code translate="no" dir="ltr">Summary : </code> refers to the summary of the data
+                    </li>
+                    <br>
+                    <li><code translate="no" dir="ltr">Keywords </code> The Best keywords in the presented data</li>
+                    <br>
+                    <li><code translate="no" dir="ltr">Sentimentscore : </code> The Sentiment score of the data.</li>
+                    <br>
+                    <br>
+
+                </ul>
+            </div>
+<!--==========================================================================================================-->
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

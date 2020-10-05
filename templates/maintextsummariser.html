@@ -1,0 +1,1415 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script>
+<script src='//static.codepen.io/assets/editor/live/css_live_reload_init-e9c0cc5bb634d3d14b840de051920ac153d7d3d36fb050abad285779d7e5e8bd.js'></script>
+<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script>
+<script src='//static.codepen.io/assets/editor/live/css_live_reload_init-e9c0cc5bb634d3d14b840de051920ac153d7d3d36fb050abad285779d7e5e8bd.js'></script>
+
+<title>Sentiment analysis | Free Sentiment analysis Using NLP and ML algorithms</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="description" content="Anaylse your Sentiment Data for free. Sentiment analysis is the interpretation and classification of emotions (positive, negative and neutral) within text data using text analysis techniques.">
+<meta name="keywords" content="Sentiment analysis,sentiment analysis python,sentiment analysis of twitter data,sentiment analysis of twitter data
+sentiment analysis using machine learning,sentiment analysis meaning,sentiment analysis python code,sentiment analysis using neural networks
+sentiment analysis algorithm,sentiment analysis analytics vidhya,sentiment analysis algorithm python">
+<meta name="author" content="Arman Mansuri">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<meta property="og:url" content="https://www.datainsighto.tech/sentimentpage"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Sentiment analysis | Free Sentiment analysis Using NLP and ML algorithms"/>
+<meta property="og:description" content="Anaylse your Sentiment Data for free. Sentiment analysis is the interpretation and classification of emotions (positive, negative and neutral) within text data using text analysis techniques."/>
+<meta property="og:image" content="static/images/images/logo.png"/>
+<link rel="canonical" href="https://codepen.io/huange/pen/rbqsD"/>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+    <style class="cp-pen-styles">
+    h1{
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table{
+      width:100%;
+    }
+
+    tbody{
+      height:600px;
+      overflow-x:auto;
+      margin-top: 0px;
+
+    }
+    th{
+      padding: 20px 15px;
+      font-size: 12px;
+      color : black;
+      text-transform: uppercase;
+      text-align-last: center;
+      font-weight: bold;
+    }
+    td{
+      padding: 15px;
+      text-align: center;
+      vertical-align:middle;
+      font-weight: 300;
+      font-size: 12px;
+      color : black;
+
+    }
+
+
+    /* demo styles */
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+    body{
+      background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+      background: linear-gradient(to right, #25c481, #25b7c4);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    section{
+      margin: 10px;
+    }
+
+    ::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+    .search {
+      padding-top: 10%;
+      width: 97%;
+      position: relative;
+    }
+    .searchTerm {
+      float: left;
+      width: 100%;
+      border: 3px solid #00B4CC;
+      padding: 5px;
+      height: 36px;
+      border-radius: 5px;
+      outline: none;
+      color: #9DBFAF;
+    }
+
+    .searchTerm:focus{
+      color: #00B4CC;
+    }
+    .searchButton {
+      position: absolute;
+      right: -45px;
+      width: 40px;
+      height: 36px;
+      border: 1px solid #00B4CC;
+      background: #00B4CC;
+      text-align: center;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+<header class="header-bg" id="home">
+			<div class="">
+					<div class="container">
+						<div class="parallax-head parallax-padding" style="padding-top: 80px; ">
+                                <div>
+                                    <div style="text-align:center;">
+                                        <div style="margin-top:5% ;padding-bottom: 20px; " class="heading-div-1 text-center">
+                                                <h2 >TEXT SUMMARIZATION</h2>
+                                                <div class="underline-ul text-center">
+                                                    <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png">
+                                                </div>
+                                        </div>
+                                        <ul id="hoverfunc" class="nav nav-tabs nav-justified justify-content-center">
+                                            <li class="nav-item active"><a data-toggle="tab" aria-selected="true"
+                                                                           style=" font-size: 25px; color: #e36937;"
+                                                                           class="nav-link" href="#menu1" aria-expanded="false">URL
+                                                <p class="mt-tab-1"></p>
+                                            </a></li>
+                                            <li class="nav-item"><a data-toggle="tab" href="#menu2" aria-selected="false"
+                                                                    style="font-size: 25px;  color: #e36937;"
+                                                                    class="nav-link" aria-expanded="true">TEXT
+                                                <p class="mt-tab-2"></p>
+                                            </a></li>
+                                            <li class="nav-item"><a data-toggle="tab" aria-selected="true"
+                                                                    style="font-size: 25px; color: #e36937;"
+                                                                    class="nav-link" href="#menu3" aria-expanded="false">UPLOAD FILE
+                                                <p class="mt-tab-3"></p>
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div id="menu1" class="tab-pane fade active show">
+                                            <div class="">
+<!--                                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+                                                <section class="section-padding section-1-bg" id="features1" style="padding-top: 1px;  padding-bottom: 0px;">
+                                                    <div class="container">
+
+                                                            <form action=" {{ url_for('textsummary_post') }}" id="submit_form_1" method="post"
+                                                                  enctype="multipart/form-data">
+                                                                <div class="row rowsafari">
+                                                                <div class="col-sm-12 col-md-12 col-lg-6 ">
+                                                                    <div class="pad-right25 ">
+                                                                        <div class="abt-col" style=" padding-top: 150px; padding-bottom: 150px;">
+                                                                            <h3 style="text-align: center; color: #e36937;">INPUT THE URL</h3>
+
+
+                                                                            <div style="margin-top: 3%;">
+                                                                                <textarea class="form-control" maxlength="1000" name="url" id="url"
+                                                                                          rows="1" required = "" style="font-size: smaller; ">{{ request.form['url'] }}</textarea>
+                                                                                <p></p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                                                                    <div class="pad-left25">
+                                                                        <ul class="content-ul">
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <div class="slidecontainer">
+                                                                                        <p>Percentage Summarization:</p>
+                                                                                        <input type="range" min="1" max="100" value="40"
+                                                                                               class="slider"
+                                                                                               id="myRange1"
+                                                                                               name="ratio1" style="width: 390px;">
+                                                                                        <p>Value: <span id="demo1"></span></p>
+
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </li>
+
+                                                                            <br>
+                                                                            <br>
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <p style="float: left;">Min Number of lines:</p>
+                                                                                    <input id="sentnum1" min="1" maxlength="20" value="15"
+                                                                                           name="sentnum1"
+                                                                                           size="20"
+                                                                                           style="width:100px;height:20px; margin-left: 15px;"
+                                                                                           type="number">
+                                                                                    <p></p>
+
+                                                                                    <p style="float: left;">Min Sentence Length:</p>
+                                                                                    <input id="sentlength1" min="1" maxlength="20"
+                                                                                           name="sentlength1"
+                                                                                           size="20"
+                                                                                           value="10"
+                                                                                           style="width:100px;height:20px; margin-left: 7px;"
+                                                                                           type="number">
+                                                                                    <p>
+                                                                                    <p style="float: left;">Min Word Length:</p>
+                                                                                    <input id="wordlength1" min="1" maxlength="20"
+                                                                                           name="wordlength1"
+                                                                                           size="20"
+                                                                                           value="1"
+                                                                                           style="width:100px;height:20px ;margin-left: 38px;"
+                                                                                           type="number">
+                                                                                    <p>
+                                                                                </div>
+                                                                            </li>
+
+                                                                            <br>
+                                                                            <br>
+
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" name="sentence_bullet1"
+                                                                                                   value="sentence_bullet1"> Show
+                                                                                            sentence
+                                                                                            bullet
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="ner_bullet1"
+                                                                                                   value="ner_bullet1"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            NER
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <br>
+                                                                                    <tr>
+                                                                                        <!-- <td><input type="checkbox" name="sentence_relevance" value="sentence_relevance"> Show sentence relevance</td> -->
+                                                                                        <td><input type="checkbox" name="keyword_highlight1"
+                                                                                                   value="keyword_highlight1">
+                                                                                            Keyword
+                                                                                            Highlighting
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="best_words1"
+                                                                                                   value="best_words1"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            Show
+                                                                                            best words
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <br>
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" name="sen_score1"
+                                                                                                   value="sen_score1">
+                                                                                            Show
+                                                                                            sentence score
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="show_sentence1"
+                                                                                                   value="show_sentence1"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            Show actual
+                                                                                            text
+                                                                                            sentences
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <div class="row">
+                                                                                            <div class="col">
+                                                                                                <td><input
+                                                                                                        class="mybutton btn-large btn btn-warning "
+                                                                                                        type="submit"
+                                                                                                        value="Summarize Now"
+                                                                                                        onclick="submit_form_1_function()"
+                                                                                                        name="submit" style="margin-top: 30px; background-color: #ec9774; ">
+                                                                                                </td>
+                                                                                            </div>
+                                                                                            <div class="col">
+                                                                                                <td><input
+                                                                                                        class="mybutton btn-large btn btn-warning "
+                                                                                                        type="submit"
+                                                                                                        value="Named Entitiy Extraction"
+                                                                                                        name="submit" style="margin-top: 30px ; background-color: #ec9774;"></td>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </tr>
+
+                                                                                </div>
+                                                                            </li>
+                                                                            <br>
+                                                                            <br>
+                                                                            <br>
+
+
+                                                                            <li>
+
+
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                            </form>
+
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <div id="menu2" class="tab-pane fade ">
+                                            <div class="">
+<!--                                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+                                                <section class="section-padding section-1-bg" id="features2" style="padding-top: 1px;   padding-bottom: 0px;">
+                                                    <div class="container">
+
+                                                        <form action=" {{ url_for('textsummary_post') }}" method="post" id="submit_form_2"
+                                                              enctype="multipart/form-data">
+                                                            <div class="row rowsafari">
+                                                                <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                                                                    <div class="pad-right25 ">
+                                                                        <div class="abt-col" style="padding-top: 30px; padding-bottom: 30px;">
+                                                                            <h3 style="text-align: center; color: #e36937;">INPUT THE TEXT</h3>
+
+
+                                                                            <div style="margin-top: 3%;">
+                                                                                <textarea class="form-control" maxlength="50000" name="text"
+                                                                                          id="text" rows="4" required = "" style="padding-top: 30px;  height: 314px ;font-size: smaller;" >{{ request.form['text'] }}</textarea>
+                                                                                <p></p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                                                                    <div class="pad-left25">
+                                                                        <ul class="content-ul">
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <div class="slidecontainer">
+                                                                                        <p>Percentage Summarization:</p>
+                                                                                        <input type="range" min="1" max="100" value="40"
+                                                                                               class="slider"
+                                                                                               id="myRange2"
+                                                                                               name="ratio2" style="width: 430px;">
+                                                                                        <p>Value: <span id="demo2"></span></p>
+
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </li>
+
+                                                                            <br>
+                                                                            <br>
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <p style="float: left;">Min Number of lines:</p>
+                                                                                    <input id="sentnum2" min="1" maxlength="20" value="15"
+                                                                                           name="sentnum2"
+                                                                                           size="20"
+                                                                                           style="width:100px;height:20px; margin-left: 15px;"
+                                                                                           type="number">
+                                                                                    <p></p>
+
+                                                                                    <p style="float: left;">Min Sentence Length:</p>
+                                                                                    <input id="sentlength2" min="1" maxlength="20"
+                                                                                           name="sentlength2"
+                                                                                           size="20"
+                                                                                           value="10"
+                                                                                           style="width:100px;height:20px; margin-left: 7px;"
+                                                                                           type="number">
+                                                                                    <p>
+                                                                                    <p style="float: left;">Min Word Length:</p>
+                                                                                    <input id="wordlength2" min="1" maxlength="20"
+                                                                                           name="wordlength2"
+                                                                                           size="20"
+                                                                                           value="1"
+                                                                                           style="width:100px;height:20px ;margin-left: 38px;"
+                                                                                           type="number">
+                                                                                    <p>
+                                                                                </div>
+                                                                            </li>
+
+                                                                            <br>
+                                                                            <br>
+
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" name="sentence_bullet2"
+                                                                                                   value="sentence_bullet2"> Show
+                                                                                            sentence
+                                                                                            bullet
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="ner_bullet2"
+                                                                                                   value="ner_bullet2"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            NER
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <br>
+                                                                                    <tr>
+                                                                                        <!-- <td><input type="checkbox" name="sentence_relevance" value="sentence_relevance"> Show sentence relevance</td> -->
+                                                                                        <td><input type="checkbox" name="keyword_highlight2"
+                                                                                                   value="keyword_highlight2">
+                                                                                            Keyword
+                                                                                            Highlighting
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="best_words2"
+                                                                                                   value="best_words2"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            Show
+                                                                                            best words
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <br>
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" name="sen_score2"
+                                                                                                   value="sen_score2">
+                                                                                            Show
+                                                                                            sentence score
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="show_sentence2"
+                                                                                                   value="show_sentence2"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            Show actual
+                                                                                            text
+                                                                                            sentences
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <div class="row">
+                                                                                            <div class="col">
+                                                                                                <td><input
+                                                                                                        class="mybutton btn-large btn btn-warning "
+                                                                                                        type="submit"
+                                                                                                        value="Summarize Now"
+                                                                                                        onclick="submit_form_2_function()"
+                                                                                                        name="submit" style="margin-top: 30px ; background-color: #ec9774;">
+                                                                                                </td>
+                                                                                            </div>
+                                                                                            <div class="col">
+                                                                                                <td><input
+                                                                                                        class="mybutton btn-large btn btn-warning "
+                                                                                                        type="submit"
+                                                                                                        value="Named Entitiy Extraction"
+                                                                                                        name="submit" style="margin-top: 30px ; background-color: #ec9774;"></td>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </tr>
+
+                                                                                </div>
+                                                                            </li>
+                                                                            <br>
+                                                                            <br>
+                                                                            <br>
+
+
+                                                                            <li>
+
+
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </form>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <div id="menu3" class="tab-pane fade">
+                                            <div class="">
+<!--                                            <div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+                                                <section class="section-padding section-1-bg" id="features3"
+                                                         style="padding-top:1px;padding-bottom: 40px; padding-bottom: 0px;  ">
+                                                    <div class="container">
+                                                            <form action=" {{ url_for('textsummary_post') }}" method="post" id="submit_form_3"
+                                                                  enctype="multipart/form-data">
+                                                                <div class="row rowsafari">
+                                                                <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                                                                    <div class="pad-right25 ">
+                                                                        <div class="abt-col" style="padding-top: 150px; padding-bottom: 150px;">
+                                                                            <h3 style="text-align: center;color: #e36937; ">UPLOAD FILE</h3>
+
+                                                                            <div style=" text-align:center; padding-left: 40px;  margin-top: 15%;">
+                                                                                <input type="file" required = "" name="file"/>
+                                                                                <p></p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                                                                    <div class="pad-left25">
+                                                                        <ul class="content-ul">
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <div class="slidecontainer">
+                                                                                        <p>Percentage Summarization:</p>
+                                                                                        <input type="range" min="1" max="100" value="40"
+                                                                                               class="slider"
+                                                                                               id="myRange3"
+                                                                                               name="ratio3" style="width: 430px;">
+                                                                                        <p>Value: <span id="demo3"></span></p>
+
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </li>
+
+                                                                            <br>
+                                                                            <br>
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <p style="float: left;">Min Number of lines:</p>
+                                                                                    <input id="sentnum3" min="1" maxlength="20" value="15"
+                                                                                           name="sentnum3"
+                                                                                           size="20"
+                                                                                           style="width:100px;height:20px; margin-left: 15px;"
+                                                                                           type="number">
+                                                                                    <p></p>
+
+                                                                                    <p style="float: left;">Min Sentence Length:</p>
+                                                                                    <input id="sentlength3" min="1" maxlength="20"
+                                                                                           name="sentlength3"
+                                                                                           size="20"
+                                                                                           value="10"
+                                                                                           style="width:100px;height:20px; margin-left: 7px;"
+                                                                                           type="number">
+                                                                                    <p>
+                                                                                    <p style="float: left;">Min Word Length:</p>
+                                                                                    <input id="wordlength3" min="1" maxlength="20"
+                                                                                           name="wordlength3"
+                                                                                           size="20"
+                                                                                           value="1"
+                                                                                           style="width:100px;height:20px ;margin-left: 38px;"
+                                                                                           type="number">
+                                                                                    <p>
+                                                                                </div>
+                                                                            </li>
+
+                                                                            <br>
+                                                                            <br>
+
+                                                                            <li>
+                                                                                <div class="distab-cell-middle">
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" name="sentence_bullet3"
+                                                                                                   value="sentence_bullet3"> Show
+                                                                                            sentence
+                                                                                            bullet
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="ner_bullet3"
+                                                                                                   value="ner_bullet3"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            NER
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <br>
+                                                                                    <tr>
+                                                                                        <!-- <td><input type="checkbox" name="sentence_relevance" value="sentence_relevance"> Show sentence relevance</td> -->
+                                                                                        <td><input type="checkbox" name="keyword_highlight3"
+                                                                                                   value="keyword_highlight3">
+                                                                                            Keyword
+                                                                                            Highlighting
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="best_words3"
+                                                                                                   value="best_words3"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            Show
+                                                                                            best words
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <br>
+                                                                                    <tr>
+                                                                                        <td><input type="checkbox" name="sen_score3"
+                                                                                                   value="sen_score3">
+                                                                                            Show
+                                                                                            sentence score
+                                                                                        </td>
+                                                                                        <td><input type="checkbox" name="show_sentence3"
+                                                                                                   value="show_sentence3"
+                                                                                                   style="margin-left: 37px;">
+                                                                                            Show actual
+                                                                                            text
+                                                                                            sentences
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <div class="row">
+                                                                                            <div class="col">
+                                                                                                <td><input
+                                                                                                        class="mybutton btn-large btn btn-warning "
+                                                                                                        type="submit"
+                                                                                                        value="Summarize Now"
+                                                                                                        onclick="submit_form_3_function()"
+                                                                                                        name="submit" style="margin-top: 30px; background-color: #ec9774;">
+                                                                                                </td>
+                                                                                            </div>
+                                                                                            <div class="col">
+                                                                                                <td><input
+                                                                                                        class="mybutton btn-large btn btn-warning "
+                                                                                                        type="submit"
+                                                                                                        value="Named Entitiy Extraction"
+                                                                                                        name="submit" style="margin-top: 30px; background-color: #ec9774;"></td>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </tr>
+
+                                                                                </div>
+                                                                            </li>
+                                                                            <br>
+                                                                            <br>
+                                                                            <br>
+
+
+                                                                            <li>
+
+
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                            </form>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+<div class="container">
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-6 container">
+            <br>
+            <h2 class="second-heading-black">TEXT SUMMARISATION</h2>
+            <div class="underline-ul">
+                <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png"/>
+            </div>
+            <p style="text-align: left;
+				height: auto;
+				background: #fff;
+				margin-top: 5%;
+				font-size: 18px;
+				font-weight: 8px;">Text Summarization is one of the most challenging and interesting
+                problems in the field of Natural Language Processing (NLP). It is a process
+                of generating a concise and meaningful summary of text from multiple text
+                resources such as books, news articles, blog posts, research papers, emails,
+                and tweets.</p>
+        </div>
+
+        <div class="" style="padding-left: 50px;">
+            <img src="static/images/text_sum.png" alt="Italian Trulli" style="">
+        </div>
+    </div>
+
+    <div class="alert alert-primary container" role="alert" style="margin-top: 20px">
+        <p style="font-size: 18px;
+				font-weight: 8px;">Check out our API for Analysing your Data
+            <i class="fa fa-arrow-right" style="font-size:16px"></i>
+            <a href="/post_API" style="font-size: 18px; font-weight: 8px; color: #e36937;"> Click Here </a>
+        </p>
+    </div>
+    <br>
+    <br>
+
+    <!--    ============================    Selection      ==================================================-->
+
+    <div>
+
+        <script>
+            var header = document.getElementById("hoverfunc");
+            var btns = header.getElementsByClassName("nav-item");
+            for (var i = 0; i < btns.length; i++) {
+              btns[i].addEventListener("click", function() {
+              var current = document.getElementsByClassName("active");
+              current[0].className = current[0].className.replace(" active", "");
+              this.className += " active";
+
+              });
+            }
+
+
+
+
+
+
+
+
+        </script>
+
+
+<!--        <div class="tab-content">-->
+<!--            <div id="menu1" class="tab-pane fade active show">-->
+<!--                <div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+<!--                    <section class="section-padding section-1-bg" id="features1" style="padding-top: 1px;">-->
+<!--                        <div class="container">-->
+
+<!--                                <form action=" {{ url_for('textsummary_post') }}" id="submit_form_1" method="post"-->
+<!--                                      enctype="multipart/form-data">-->
+<!--                                    <div class="row rowsafari">-->
+<!--                                    <div class="col-sm-12 col-md-12 col-lg-6 ">-->
+<!--                                        <div class="pad-right25 ">-->
+<!--                                            <div class="abt-col" style="padding-top: 150px; padding-bottom: 150px;">-->
+<!--                                                <h3 style="text-align: center;">INPUT THE URL</h3>-->
+
+
+<!--                                                <div style="margin-top: 3%;">-->
+<!--                                                    <textarea class="form-control" maxlength="1000" name="url" id="url"-->
+<!--                                                              rows="1" required = "" style="font-size: smaller;">{{ request.form['url'] }}</textarea>-->
+<!--                                                    <p></p>-->
+<!--                                                </div>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-12 col-md-12 col-lg-6 features-top">-->
+<!--                                        <div class="pad-left25">-->
+<!--                                            <ul class="content-ul">-->
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <div class="slidecontainer">-->
+<!--                                                            <p>Percentage Summarization:</p>-->
+<!--                                                            <input type="range" min="1" max="100" value="40"-->
+<!--                                                                   class="slider"-->
+<!--                                                                   id="myRange1"-->
+<!--                                                                   name="ratio1" style="width: 390px;">-->
+<!--                                                            <p>Value: <span id="demo1"></span></p>-->
+
+<!--                                                        </div>-->
+
+
+<!--                                                    </div>-->
+<!--                                                </li>-->
+
+<!--                                                <br>-->
+<!--                                                <br>-->
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <p style="float: left;">Min Number of lines:</p>-->
+<!--                                                        <input id="sentnum1" min="1" maxlength="20" value="15"-->
+<!--                                                               name="sentnum1"-->
+<!--                                                               size="20"-->
+<!--                                                               style="width:100px;height:20px; margin-left: 15px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p></p>-->
+
+<!--                                                        <p style="float: left;">Min Sentence Length:</p>-->
+<!--                                                        <input id="sentlength1" min="1" maxlength="20"-->
+<!--                                                               name="sentlength1"-->
+<!--                                                               size="20"-->
+<!--                                                               value="10"-->
+<!--                                                               style="width:100px;height:20px; margin-left: 7px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p>-->
+<!--                                                        <p style="float: left;">Min Word Length:</p>-->
+<!--                                                        <input id="wordlength1" min="1" maxlength="20"-->
+<!--                                                               name="wordlength1"-->
+<!--                                                               size="20"-->
+<!--                                                               value="1"-->
+<!--                                                               style="width:100px;height:20px ;margin-left: 38px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+
+<!--                                                <br>-->
+<!--                                                <br>-->
+
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <tr>-->
+<!--                                                            <td><input type="checkbox" name="sentence_bullet1"-->
+<!--                                                                       value="sentence_bullet1"> Show-->
+<!--                                                                sentence-->
+<!--                                                                bullet-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="ner_bullet1"-->
+<!--                                                                       value="ner_bullet1"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                NER-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                        <br>-->
+<!--                                                        <tr>-->
+<!--                                                            &lt;!&ndash; <td><input type="checkbox" name="sentence_relevance" value="sentence_relevance"> Show sentence relevance</td> &ndash;&gt;-->
+<!--                                                            <td><input type="checkbox" name="keyword_highlight1"-->
+<!--                                                                       value="keyword_highlight1">-->
+<!--                                                                Keyword-->
+<!--                                                                Highlighting-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="best_words1"-->
+<!--                                                                       value="best_words1"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                Show-->
+<!--                                                                best words-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                        <br>-->
+<!--                                                        <tr>-->
+<!--                                                            <td><input type="checkbox" name="sen_score1"-->
+<!--                                                                       value="sen_score1">-->
+<!--                                                                Show-->
+<!--                                                                sentence score-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="show_sentence1"-->
+<!--                                                                       value="show_sentence1"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                Show actual-->
+<!--                                                                text-->
+<!--                                                                sentences-->
+<!--                                                            </td>-->
+<!--                                                        </tr>-->
+
+<!--                                                        <tr>-->
+<!--                                                            <div class="row">-->
+<!--                                                                <div class="col">-->
+<!--                                                                    <td><input-->
+<!--                                                                            class="mybutton btn-large btn btn-warning "-->
+<!--                                                                            type="submit"-->
+<!--                                                                            value="Summarize Now"-->
+<!--                                                                            onclick="submit_form_1_function()"-->
+<!--                                                                            name="submit" style="margin-top: 30px">-->
+<!--                                                                    </td>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="col">-->
+<!--                                                                    <td><input-->
+<!--                                                                            class="mybutton btn-large btn btn-warning "-->
+<!--                                                                            type="submit"-->
+<!--                                                                            value="Named Entitiy Extraction"-->
+<!--                                                                            name="submit" style="margin-top: 30px"></td>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </tr>-->
+
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                                <br>-->
+<!--                                                <br>-->
+<!--                                                <br>-->
+
+
+<!--                                                <li>-->
+
+
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div id="menu2" class="tab-pane fade ">-->
+<!--                <div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+<!--                    <section class="section-padding section-1-bg" id="features2" style="padding-top: 1px;">-->
+<!--                        <div class="container">-->
+
+<!--                            <form action=" {{ url_for('textsummary_post') }}" method="post" id="submit_form_2"-->
+<!--                                  enctype="multipart/form-data">-->
+<!--                                <div class="row rowsafari">-->
+<!--                                    <div class="col-sm-12 col-md-12 col-lg-6 features-top">-->
+<!--                                        <div class="pad-right25 ">-->
+<!--                                            <div class="abt-col" style="padding-top: 30px; padding-bottom: 30px;">-->
+<!--                                                <h3 style="text-align: center;">INPUT THE TEXT</h3>-->
+
+
+<!--                                                <div style="margin-top: 3%;">-->
+<!--                                                    <textarea class="form-control" maxlength="50000" name="text"-->
+<!--                                                              id="text" rows="4" required = "" style="padding-top: 30px; height: 314px font-size: smaller;" >{{ request.form['text'] }}</textarea>-->
+<!--                                                    <p></p>-->
+<!--                                                </div>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-12 col-md-12 col-lg-6 features-top">-->
+<!--                                        <div class="pad-left25">-->
+<!--                                            <ul class="content-ul">-->
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <div class="slidecontainer">-->
+<!--                                                            <p>Percentage Summarization:</p>-->
+<!--                                                            <input type="range" min="1" max="100" value="40"-->
+<!--                                                                   class="slider"-->
+<!--                                                                   id="myRange2"-->
+<!--                                                                   name="ratio2" style="width: 430px;">-->
+<!--                                                            <p>Value: <span id="demo2"></span></p>-->
+
+<!--                                                        </div>-->
+
+
+<!--                                                    </div>-->
+<!--                                                </li>-->
+
+<!--                                                <br>-->
+<!--                                                <br>-->
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <p style="float: left;">Min Number of lines:</p>-->
+<!--                                                        <input id="sentnum2" min="1" maxlength="20" value="15"-->
+<!--                                                               name="sentnum2"-->
+<!--                                                               size="20"-->
+<!--                                                               style="width:100px;height:20px; margin-left: 15px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p></p>-->
+
+<!--                                                        <p style="float: left;">Min Sentence Length:</p>-->
+<!--                                                        <input id="sentlength2" min="1" maxlength="20"-->
+<!--                                                               name="sentlength2"-->
+<!--                                                               size="20"-->
+<!--                                                               value="10"-->
+<!--                                                               style="width:100px;height:20px; margin-left: 7px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p>-->
+<!--                                                        <p style="float: left;">Min Word Length:</p>-->
+<!--                                                        <input id="wordlength2" min="1" maxlength="20"-->
+<!--                                                               name="wordlength2"-->
+<!--                                                               size="20"-->
+<!--                                                               value="1"-->
+<!--                                                               style="width:100px;height:20px ;margin-left: 38px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+
+<!--                                                <br>-->
+<!--                                                <br>-->
+
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <tr>-->
+<!--                                                            <td><input type="checkbox" name="sentence_bullet2"-->
+<!--                                                                       value="sentence_bullet2"> Show-->
+<!--                                                                sentence-->
+<!--                                                                bullet-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="ner_bullet2"-->
+<!--                                                                       value="ner_bullet2"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                NER-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                        <br>-->
+<!--                                                        <tr>-->
+<!--                                                            &lt;!&ndash; <td><input type="checkbox" name="sentence_relevance" value="sentence_relevance"> Show sentence relevance</td> &ndash;&gt;-->
+<!--                                                            <td><input type="checkbox" name="keyword_highlight2"-->
+<!--                                                                       value="keyword_highlight2">-->
+<!--                                                                Keyword-->
+<!--                                                                Highlighting-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="best_words2"-->
+<!--                                                                       value="best_words2"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                Show-->
+<!--                                                                best words-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                        <br>-->
+<!--                                                        <tr>-->
+<!--                                                            <td><input type="checkbox" name="sen_score2"-->
+<!--                                                                       value="sen_score2">-->
+<!--                                                                Show-->
+<!--                                                                sentence score-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="show_sentence2"-->
+<!--                                                                       value="show_sentence2"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                Show actual-->
+<!--                                                                text-->
+<!--                                                                sentences-->
+<!--                                                            </td>-->
+<!--                                                        </tr>-->
+
+<!--                                                        <tr>-->
+<!--                                                            <div class="row">-->
+<!--                                                                <div class="col">-->
+<!--                                                                    <td><input-->
+<!--                                                                            class="mybutton btn-large btn btn-warning "-->
+<!--                                                                            type="submit"-->
+<!--                                                                            value="Summarize Now"-->
+<!--                                                                            onclick="submit_form_2_function()"-->
+<!--                                                                            name="submit" style="margin-top: 30px">-->
+<!--                                                                    </td>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="col">-->
+<!--                                                                    <td><input-->
+<!--                                                                            class="mybutton btn-large btn btn-warning "-->
+<!--                                                                            type="submit"-->
+<!--                                                                            value="Named Entitiy Extraction"-->
+<!--                                                                            name="submit" style="margin-top: 30px"></td>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </tr>-->
+
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                                <br>-->
+<!--                                                <br>-->
+<!--                                                <br>-->
+
+
+<!--                                                <li>-->
+
+
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div id="menu3" class="tab-pane fade">-->
+<!--                <div class="col-xs-12 col-sm-10 col-sm-offset-1">-->
+<!--                    <section class="section-padding section-1-bg" id="features3"-->
+<!--                             style="padding-top:1px;padding-bottom: 40px;">-->
+<!--                        <div class="container">-->
+<!--                                <form action=" {{ url_for('textsummary_post') }}" method="post" id="submit_form_3"-->
+<!--                                      enctype="multipart/form-data">-->
+<!--                                    <div class="row rowsafari">-->
+<!--                                    <div class="col-sm-12 col-md-12 col-lg-6 features-top">-->
+<!--                                        <div class="pad-right25 ">-->
+<!--                                            <div class="abt-col" style="padding-top: 150px; padding-bottom: 150px;">-->
+<!--                                                <h3 style="text-align: center;">LOAD FILE</h3>-->
+
+<!--                                                <div style=" text-align:center; padding-left: 40px;  margin-top: 15%;">-->
+<!--                                                    <input type="file" required = "" name="file"/>-->
+<!--                                                    <p></p>-->
+<!--                                                </div>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-12 col-md-12 col-lg-6 features-top">-->
+<!--                                        <div class="pad-left25">-->
+<!--                                            <ul class="content-ul">-->
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <div class="slidecontainer">-->
+<!--                                                            <p>Percentage Summarization:</p>-->
+<!--                                                            <input type="range" min="1" max="100" value="40"-->
+<!--                                                                   class="slider"-->
+<!--                                                                   id="myRange3"-->
+<!--                                                                   name="ratio3" style="width: 430px;">-->
+<!--                                                            <p>Value: <span id="demo3"></span></p>-->
+
+<!--                                                        </div>-->
+
+
+<!--                                                    </div>-->
+<!--                                                </li>-->
+
+<!--                                                <br>-->
+<!--                                                <br>-->
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <p style="float: left;">Min Number of lines:</p>-->
+<!--                                                        <input id="sentnum3" min="1" maxlength="20" value="15"-->
+<!--                                                               name="sentnum3"-->
+<!--                                                               size="20"-->
+<!--                                                               style="width:100px;height:20px; margin-left: 15px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p></p>-->
+
+<!--                                                        <p style="float: left;">Min Sentence Length:</p>-->
+<!--                                                        <input id="sentlength3" min="1" maxlength="20"-->
+<!--                                                               name="sentlength3"-->
+<!--                                                               size="20"-->
+<!--                                                               value="10"-->
+<!--                                                               style="width:100px;height:20px; margin-left: 7px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p>-->
+<!--                                                        <p style="float: left;">Min Word Length:</p>-->
+<!--                                                        <input id="wordlength3" min="1" maxlength="20"-->
+<!--                                                               name="wordlength3"-->
+<!--                                                               size="20"-->
+<!--                                                               value="1"-->
+<!--                                                               style="width:100px;height:20px ;margin-left: 38px;"-->
+<!--                                                               type="number">-->
+<!--                                                        <p>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+
+<!--                                                <br>-->
+<!--                                                <br>-->
+
+<!--                                                <li>-->
+<!--                                                    <div class="distab-cell-middle">-->
+<!--                                                        <tr>-->
+<!--                                                            <td><input type="checkbox" name="sentence_bullet3"-->
+<!--                                                                       value="sentence_bullet3"> Show-->
+<!--                                                                sentence-->
+<!--                                                                bullet-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="ner_bullet3"-->
+<!--                                                                       value="ner_bullet3"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                NER-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                        <br>-->
+<!--                                                        <tr>-->
+<!--                                                            &lt;!&ndash; <td><input type="checkbox" name="sentence_relevance" value="sentence_relevance"> Show sentence relevance</td> &ndash;&gt;-->
+<!--                                                            <td><input type="checkbox" name="keyword_highlight3"-->
+<!--                                                                       value="keyword_highlight3">-->
+<!--                                                                Keyword-->
+<!--                                                                Highlighting-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="best_words3"-->
+<!--                                                                       value="best_words3"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                Show-->
+<!--                                                                best words-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+<!--                                                        <br>-->
+<!--                                                        <tr>-->
+<!--                                                            <td><input type="checkbox" name="sen_score3"-->
+<!--                                                                       value="sen_score3">-->
+<!--                                                                Show-->
+<!--                                                                sentence score-->
+<!--                                                            </td>-->
+<!--                                                            <td><input type="checkbox" name="show_sentence3"-->
+<!--                                                                       value="show_sentence3"-->
+<!--                                                                       style="margin-left: 37px;">-->
+<!--                                                                Show actual-->
+<!--                                                                text-->
+<!--                                                                sentences-->
+<!--                                                            </td>-->
+<!--                                                        </tr>-->
+
+<!--                                                        <tr>-->
+<!--                                                            <div class="row">-->
+<!--                                                                <div class="col">-->
+<!--                                                                    <td><input-->
+<!--                                                                            class="mybutton btn-large btn btn-warning "-->
+<!--                                                                            type="submit"-->
+<!--                                                                            value="Summarize Now"-->
+<!--                                                                            onclick="submit_form_3_function()"-->
+<!--                                                                            name="submit" style="margin-top: 30px">-->
+<!--                                                                    </td>-->
+<!--                                                                </div>-->
+<!--                                                                <div class="col">-->
+<!--                                                                    <td><input-->
+<!--                                                                            class="mybutton btn-large btn btn-warning "-->
+<!--                                                                            type="submit"-->
+<!--                                                                            value="Named Entitiy Extraction"-->
+<!--                                                                            name="submit" style="margin-top: 30px"></td>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </tr>-->
+
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                                <br>-->
+<!--                                                <br>-->
+<!--                                                <br>-->
+
+
+<!--                                                <li>-->
+
+
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                        </div>-->
+<!--                    </section>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+        <!--    --------------------------------------------------------------------    -->
+        <br>
+
+
+    </div>
+
+</div>
+
+<script>
+
+
+        function submit_form_1_function() {
+            var form = document.getElementById("submit_form_1");
+            form.submit();
+        }
+
+        function submit_form_2_function() {
+            var form = document.getElementById("submit_form_2");
+            form.submit();
+        }
+
+        function submit_form_3_function() {
+            var form = document.getElementById("submit_form_3");
+            form.submit();
+        }
+
+        var slider1 = document.getElementById("myRange1");
+        var output1 = document.getElementById("demo1");
+        output1.innerHTML = slider1.value+"%";
+
+        slider1.oninput = function() {
+          output1.innerHTML = this.value+"%";
+        }
+
+        var slider2 = document.getElementById("myRange2");
+        var output2 = document.getElementById("demo2");
+        output2.innerHTML = slider2.value+"%";
+
+        slider2.oninput = function() {
+          output2.innerHTML = this.value+"%";
+        }
+
+
+        var slider3 = document.getElementById("myRange3");
+        var output3 = document.getElementById("demo3");
+        output3.innerHTML = slider3.value+"%";
+
+        slider3.oninput = function() {
+          output3.innerHTML = this.value+"%";
+        }
+
+
+
+
+
+
+
+</script>
+<script>
+            (function($) {
+
+            ////////////////////////////////////////////////////////
+            ///////////////// SCROLL TO ELEMENT ////////////////////
+            ////////////////////////////////////////////////////////
+
+              var $htmlBody       = $( 'html, body' ),
+                $jsScroll         = $('.js-scroll-to-element'),
+                hash        = window.location.hash,
+                speed         = 600,  // millesconds it takes to reach the item
+                stopHere      = -30,  // pixels from element when it stops
+                target,
+                withHash;
+
+
+
+              function animateToElement() {
+
+                // scroll to id that matches href and animate
+                $htmlBody.animate({
+                  scrollTop: $(withHash).offset().top + stopHere
+                }, speed);
+
+              }
+
+
+
+              $(window).load(function() {
+
+                // if address bar has hash scroll to element
+                if (hash.length) {
+
+                  // update hash
+                  withHash = hash;
+
+                  // initiate scroll to function
+                  animateToElement();
+                }
+
+              });
+
+
+              function scrollToElement() {
+
+                // grab href
+                target = $(this).attr('href');
+
+                // update hash
+                withHash = target;
+
+                // initiate scroll to function
+                animateToElement();
+
+              }
+
+
+              $jsScroll.on('click', scrollToElement);
+
+
+
+
+            })(jQuery);
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}

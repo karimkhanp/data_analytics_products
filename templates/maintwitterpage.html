@@ -1,0 +1,735 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript"
+        src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script>
+<script src='//static.codepen.io/assets/editor/live/css_live_reload_init-e9c0cc5bb634d3d14b840de051920ac153d7d3d36fb050abad285779d7e5e8bd.js'></script>
+<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script>
+<script src='//static.codepen.io/assets/editor/live/css_live_reload_init-e9c0cc5bb634d3d14b840de051920ac153d7d3d36fb050abad285779d7e5e8bd.js'></script>
+
+<title>Twitter analytics | Analyse Twitter data using Artificial Intelligence</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="description" content="Analyse your Twitter data for free. Twitter Analytics shows you how your audience is responding to your content, what's working, and what's not. Use this data to optimize your future Twitter campaigns and get better results.">
+<meta name="keywords" content="twitter analytics,twitter analytics tools,twitter analytics api ,twitter analytics in app ,twitter analytics using python,twitter analytics meaning,twitter analytics api python
+twitter analysis,twitter analysis using python,twitter analysis tool,twitter analysis using r,twitter analysis python">
+<meta name="author" content="Arman Mansuri">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<meta property="og:url" content="https://www.datainsighto.tech/twitterdata"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Twitter analytics | Analyse Twitter data using Artificial Intelligence"/>
+<meta property="og:description" content="Analyse your Twitter data for free. Twitter Analytics shows you how your audience is responding to your content, what's working, and what's not. Use this data to optimize your future Twitter campaigns and get better results."/>
+<meta property="og:image" content="static/images/images/logo.png"/>
+
+<link rel="canonical" href="https://codepen.io/huange/pen/rbqsD"/>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+
+<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+    <style class="cp-pen-styles">
+    h1{
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table{
+      width:100%;
+    }
+
+    tbody{
+      height:600px;
+      overflow-x:auto;
+      margin-top: 0px;
+
+    }
+    th{
+      padding: 20px 15px;
+      font-size: 12px;
+      color : black;
+      text-transform: uppercase;
+      text-align-last: center;
+      font-weight: bold;
+    }
+    td{
+      padding: 15px;
+      text-align: center;
+      vertical-align:middle;
+      font-weight: 300;
+      font-size: 12px;
+      color : black;
+
+    }
+
+
+    /* demo styles */
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+    body{
+      background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+      background: linear-gradient(to right, #25c481, #25b7c4);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    section{
+      margin: 10px;
+    }
+
+    ::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+    .search {
+      padding-top: 10%;
+      width: 97%;
+      position: relative;
+    }
+    .searchTerm {
+      float: left;
+      width: 100%;
+      border: 3px solid #00B4CC;
+      padding: 5px;
+      height: 36px;
+      border-radius: 5px;
+      outline: none;
+      color: #9DBFAF;
+    }
+
+    .searchTerm:focus{
+      color: #00B4CC;
+    }
+    .searchButton {
+      position: absolute;
+      right: -45px;
+      width: 40px;
+      height: 36px;
+      border: 1px solid #00B4CC;
+      background: #00B4CC;
+      text-align: center;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<section class="section-padding section-1-bg" >
+    <div class= "container">
+        <div class="heading-div-1 text-center">
+            <h2>TWITTER ANALYSIS</h2>
+            <div class="underline-ul text-center">
+                <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png">
+            </div>
+        </div>
+        <div class="row rowsafari">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="pad-right25 ">
+                    <div class="abt-col" style="padding-top: 50px; padding-bottom: 50px;">
+                        <h3>Top Tweets in India</h3>
+                        <div class="dists overflow-auto" style="overflow-y: auto">
+                            {% for key, value in Hashtag_dict.items() %}
+                            <a href="{{ url_for('my_form_post',Key_Word=key) }}">
+                                {% if (value) == "None" %}
+                                <span class="badge badge-success green_block"
+                                      style="margin-top: 5px; color: #1d2124; background-color: rgb(180, 220, 247);">
+                                            #{{ key }}
+                                </span>
+                                {% else %}
+                                <span class="badge badge-success green_block"
+                                      style="margin-top: 5px; color: #1d2124; background-color: rgb(180, 220, 247);">
+                                            #{{ key }} - {{ value }}
+                                </span>
+                                {% endif %}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                <div class="pad-left25">
+                    <ul class="content-ul">
+                        <li>
+                            <div class="distab-cell-middle">
+                                <h4 class="heading-bottom-space mission-br"><a>EASY SEARCH FOR THE IMAGES,
+                                    VIDEOS, ARTICLES AND NEWS BASED ON KEYWORD.</a></h4>
+                                <!-- <p>Lorem ipsum dolor sit amet. Vestibulum imperdiet nibh vel magna lacinia ultrices</p> -->
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="distab-cell-middle">
+                                <h4 class="heading-bottom-space mission-br"><a>PLAN SOCIAL MEDIA STRATEGIES AND
+                                    RESONATE YOUR ENGAGEMENT RATE</a></h4>
+                                <!-- <p>Lorem ipsum dolor sit amet. Vestibulum imperdiet nibh vel magna lacinia ultrices</p> -->
+                            </div>
+                        </li>
+                        <br>
+                        <br>
+                        <br>
+
+                        <li>
+                            <div class="row">
+
+                                    <div class="col-sm">
+                                        <form action="" name="myformmain" onsubmit="DoSubmit()" value="" method="post" style="width: 300px;margin-left: 35px;">
+                                            <input type="text" name="keyword" id="Searchbox_value" class="searchTerm" placeholder="Keyword you are searching for?" style=" margin-bottom: 0px;height: 41px;
+                                                                                            border-top-width: 3px;  border: 3px solid #e36937; margin-top: 1px;" value="" required="">
+                                            <br>
+                                            <br>
+                                            <button onclick="myFunction1()" id="empty_check" class=" btn btn-danger" style="background-color: #e36937;">
+                                                <i class="fa fa-search"></i>
+                                                Search
+                                            </button>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-sm" style="width: 150px;left: 80px;">
+                                        <div class="dropdown">
+                                            <button class="btn btn-info btn-sm dropdown-toggle" style="background-color: #e36937;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Category
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <form action="" name="namehomePage1" id="homePage1" method="post">
+                                                    <input type="hidden" name="keyword1" value="All">
+                                                </form>
+                                                <a class="dropdown-item" href="javascript:;" onclick="myFunction1()">ALL</a>
+
+                                                <form action="" name="namehomePage2" id="homePage2" method="post">
+                                                    <input type="hidden" name="keyword1" value="Article">
+                                                </form>
+                                                <a class="dropdown-item" href="javascript:;" onclick="myFunction2()">Articles</a>
+
+                                                <form action="" name="namehomePage3" id="homePage3" method="post">
+                                                    <input type="hidden" name="keyword1" value="Image">
+                                                </form>
+                                                <a class="dropdown-item" href="javascript:;" onclick="myFunction3()">Images</a>
+
+                                                <form action="" name="namehomePage4" id="homePage4" method="post">
+                                                    <input type="hidden" name="keyword1" value="Video">
+                                                </form>
+                                                <a class="dropdown-item" href="javascript:;" onclick="myFunction4()">Videos</a>
+
+                                                <form action="" name="namehomePage5" id="homePage5" method="post">
+                                                    <input type="hidden" name="keyword1" value="GIF">
+                                                </form>
+                                                <a class="dropdown-item" href="javascript:;" onclick="myFunction5()">GIFs</a>
+                                            </div>
+                                            <script>
+
+
+
+                                                function myFunction1() {
+                                                    var val = document.getElementById('Searchbox_value').value;
+                                                    console.log(val);
+                                                    var len = val.length;
+                                                    if (len>1){
+                                                        document.namehomePage1.keyword1.value = val+"$All";
+                                                        document.getElementById('homePage1').submit();
+                                                    }
+                                                    else{
+                                                        document.getElementById("empty_check").click();
+                                                    }
+
+                                                    }
+
+                                                function myFunction2() {
+                                                        var val = document.getElementById('Searchbox_value').value;
+                                                        var len = val.length;
+                                                    if (len>1){
+                                                        document.namehomePage2.keyword1.value = val+"$Article";
+                                                        document.getElementById('homePage2').submit();
+                                                    }
+                                                    else{
+                                                        document.getElementById("empty_check").click();
+                                                    }
+                                                    }
+
+                                                function myFunction3() {
+                                                          var val = document.getElementById('Searchbox_value').value;
+                                                        var len = val.length;
+                                                    if (len>1){
+                                                        document.namehomePage3.keyword1.value = val+"$Image";
+                                                        document.getElementById('homePage3').submit();
+                                                    }
+                                                    else{
+                                                        document.getElementById("empty_check").click();
+                                                    }
+                                                    }
+                                                function myFunction4() {
+                                                        var val = document.getElementById('Searchbox_value').value;
+
+                                                        var len = val.length;
+                                                    if (len>1){
+                                                        document.namehomePage4.keyword1.value = val+"$Video";
+                                                        document.getElementById('homePage4').submit();
+                                                    }
+                                                    else{
+                                                        document.getElementById("empty_check").click();
+                                                    }
+
+                                                    }
+                                                function myFunction5() {
+                                                        var val = document.getElementById('Searchbox_value').value;
+                                                        var len = val.length;
+                                                    if (len>1){
+                                                        document.namehomePage5.keyword1.value = val+"$GIF";
+                                                        document.getElementById('homePage5').submit();
+                                                    }
+                                                    else{
+                                                        document.getElementById("empty_check").click();
+                                                    }
+                                                    }
+
+                                                 function DoSubmit(){
+                                                      var valstr = document.getElementById('Searchbox_value').value;
+                                                      document.myformmain.keyword.value = valstr+"$All";
+                                                      return true;
+                                                    }
+
+
+                                            </script>
+                                            <style type="text/css">
+                                         ul{
+        padding: 0;
+              /*background: white;*/
+        background-color: transparent;
+    }
+    ul li{
+        display: inline-block;
+        position: relative;
+        text-align: left;
+
+    }
+    ul li a{
+        display: block;
+        padding: 8px 15px;
+        background-color: transparent;
+        text-decoration: none;
+
+    }
+    ul li a:hover{
+        color: grey;
+
+    }
+    ul li ul.dropdown{
+        min-width: 100%; /* Set width of the dropdown */
+        color: #212529;
+        background: white;
+        font-family: 'Poppins', sans-serif, Arial, Verdana, 'Trebuchet MS';
+        font-size: 15px;
+        display: none;
+        position: absolute;
+        z-index: 1030;
+        left: 0;
+        line-height: 21px;
+        font-style: bold;
+    }
+    ul li:hover ul.dropdown{
+        display: block; /* Display the dropdown */
+    }
+    ul li ul.dropdown li{
+        display: block;
+    }
+
+
+
+
+                                            </style>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-padding section-2-bg" id="about">
+    <div class="container">
+        <br>
+        <div class="alert alert-primary " role="alert" style="margin-top: 20px">
+                <p style="font-size: 18px;
+                            font-weight: 8px;">Check out our API for Analysing your Data
+                    <i class="fa fa-arrow-right" style="font-size:16px"></i>
+                    <a href="/post_API" style="font-size: 18px; font-weight: 8px; color: #e36937;"> Click Here </a>
+                </p>
+            </div>
+        <br>
+        <h2 class="second-heading-black">TWITTER TRENDS</h2>
+        <div class="underline-ul">
+            <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png"/>
+        </div>
+        <div class="row rowsafari">
+            <div class="col-sm-12 col-md-12 col-lg-6 order-lg-1 order-1 res-top20">
+                <div class="pad-right25">
+                    <div class="abt-col" style="height: 382px; padding-top:1px ; padding-left: 1px; ">
+                        <br>
+
+
+                        <p style="text-align: left;
+                                height: auto;
+
+                                margin-top: 5%;
+                                font-size: 18px;
+                                font-weight: 8px;">Analyze your Tweet data to understand your followers.
+                            Every word, photo, video, and follower can have an impact.
+                            Twitter Analytics shows you how your audience is responding to your content,
+                            what's working, and what's not. Use this data to optimize your future Twitter campaigns
+                            and get better results.</p>
+
+                            <p style="text-align: left;
+                                height: auto;
+                                margin-top: 5%;
+                                font-size: 18px;
+                                font-weight: 8px;">Impressions on Twitter is a total tally of all the times the Tweet has been seen. ...
+                                In the Twitter Analytics Dashboard,
+                            you're see how your Tweets performed over time. </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-6 order-lg-2 order-2">
+                <div class="pad-left25">
+                    <img src="static/images/Twitter_Logo_Blue.png" alt="Italian Trulli">
+                </div>
+
+            </div>
+
+
+
+            <br>
+
+
+        </div>
+    </div>
+</section>
+<section class="section-padding section-1-bg" >
+    <div class= "container">
+        <div class="heading-div-1 text-center">
+<!--            Enter Heading -->
+            <h2>VISUAL ANALYSIS</h2>
+            <div class="underline-ul text-center">
+                <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png">
+            </div>
+        </div>
+        <div class="row rowsafari">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="pad-right25 ">
+                    <div class="abt-col" style=" padding-left: 0px; padding-right :0px; padding-top: 0px; padding-bottom: 0px;">
+                        <div id="chart-container">FusionCharts</div>
+<!--                        Enter first block-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 features-top">
+                <div class="pad-left25">
+                    <div id="container"></div>
+<!--                    Enter second block-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding section-1-bg" id="">
+    <div class= "container">
+        <div class="heading-div-1 text-center">
+        <h2>TWITTER DATA</h2>
+        <div class="underline-ul text-center">
+            <img src="static/images/110x16.png" alt="uline" data-at2x="static/images/110x16@2x.png">
+        </div>
+        <br>
+        <table class="table table-striped overflow-auto" style="overflow-x: auto;">
+            <thead>
+            <tr>
+                <th scope="col">Created</th>
+                <th scope="col">Tweet</th>
+                <th scope="col">Sentiment</th>
+                <th scope="col">Reaction</th>
+                <th scope="col">Retweets</th>
+                <th scope="col">Favourites</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Followers</th>
+                <th scope="col">Friends</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for row in ret_data %}
+            <tr>
+                <td>{{row.0}}</td>
+
+                {% if row.10 == "" %}
+                <td width="800">{{row.1}}</td>
+                {% else %}
+                <td width="800" align="center">{{row.1}}<br><br>
+                    <div align="center"><img src={{row.10}} height="300" width="400" align="center"></div>
+                </td>
+                {% endif %}
+
+                {% if row.2 == "Positive" %}
+                <td style="color:green;font-weight: bold;font-size: 100%"><b>{{row.2}}</b></td>
+                {% endif %}
+                {% if row.2 == "Negative" %}
+                <td style="color:#B00000;font-weight: bold;font-size: 100%"><b>{{row.2}}</b></td>
+                {% endif %}
+                {% if row.2 == "Neutral" %}
+                <td style="color:#CC9900;font-weight: bold;font-size: 100%"><b>{{row.2}}</b></td>
+                {% endif %}
+
+                <td>{{row.3}}</td>
+                <td>{{row.4}}</td>
+                <td>{{row.5}}</td>
+                <td><img src={{row.7}} style="border-radius: 50%;"><br>{{row.6}}</td>
+                <td>{{row.8}}</td>
+                <td>{{row.9}}</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+
+  var x = JSON.parse('{{ testlist|tojson }}');
+
+  FusionCharts.ready(function(){
+  var fusioncharts = new FusionCharts({
+  type: 'doughnut2d',
+  renderAt: 'chart-container',
+  width: '550',
+  height: '450',
+  dataFormat: 'json',
+  dataSource: {
+      "chart": {
+          "caption": "Tweet Analysis",
+          "subCaption": "Positive, Neutral,Negative",
+          "numberPrefix": "",
+          "startingAngle": "310",
+          "showLegend": "1",
+          "defaultCenterLabel": "Sentiment",
+          "centerLabel": "Count of $label: $value",
+          "centerLabelBold": "1",
+          "showTooltip": "0",
+          "decimals": "0",
+          "theme": "fusion"
+      },
+      "data": x
+  }
+}
+);
+  fusioncharts.render();
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<script type="text/javascript">
+var text = '{{final_freq_Dict}}';
+var arrray = [];
+var lines = text.split(/[,\. ]+/g),
+data = Highcharts.reduce(lines, function (arr, word) {
+    var obj = Highcharts.find(arr, function (obj) {
+          return obj.name === word;
+     });
+      if (obj) {
+          obj.weight += 1;
+      } else {
+
+          obj = {
+              name: word,
+              weight: 1
+          };
+          arr.push(obj);
+      }
+      return arr;
+  },
+
+  []);
+
+Highcharts.chart('container', {
+  series: [{
+      type: 'wordcloud',
+      data: data,
+      name: 'Occurrences'
+  }],
+  title: {
+      text: 'Influencing Keywords'
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<script>
+            (function($) {
+
+            ////////////////////////////////////////////////////////
+            ///////////////// SCROLL TO ELEMENT ////////////////////
+            ////////////////////////////////////////////////////////
+
+              var $htmlBody       = $( 'html, body' ),
+                $jsScroll         = $('.js-scroll-to-element'),
+                hash        = window.location.hash,
+                speed         = 600,  // millesconds it takes to reach the item
+                stopHere      = -30,  // pixels from element when it stops
+                target,
+                withHash;
+
+
+
+              function animateToElement() {
+
+                // scroll to id that matches href and animate
+                $htmlBody.animate({
+                  scrollTop: $(withHash).offset().top + stopHere
+                }, speed);
+
+              }
+
+
+
+              $(window).load(function() {
+
+                // if address bar has hash scroll to element
+                if (hash.length) {
+
+                  // update hash
+                  withHash = hash;
+
+                  // initiate scroll to function
+                  animateToElement();
+                }
+
+              });
+
+
+              function scrollToElement() {
+
+                // grab href
+                target = $(this).attr('href');
+
+                // update hash
+                withHash = target;
+
+                // initiate scroll to function
+                animateToElement();
+
+              }
+
+
+              $jsScroll.on('click', scrollToElement);
+
+
+
+
+            })(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}
