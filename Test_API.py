@@ -80,7 +80,7 @@ def Senti_para_summary():
 
 
 
-Senti_URL_summary()
+
 Senti_para_summary()
 
 # Text_URL_summary()
