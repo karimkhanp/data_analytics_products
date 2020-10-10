@@ -214,3 +214,51 @@ def Spacy_NLP_Func():
     
     return lngstc_anntatns_res,tokenzn_res,POSW_res,nmd_entits_res,vcblry_anntatns_res,content
   
+  
+  
+class ParaNLP(Resource):
+    def get(self):
+        return {'about':'Enter your Paragraph'}
+    def post(self):
+        data = request.get_json()
+        content = data['paragraph']
+        lngstc_anntatns_res = Linguistic_annotations(content)
+        tokenzn_res = Tokenization(content)
+        POSW_res = Part_of_speech_tags(content)
+        nmd_entits_res = Named_Entities(content)
+        vcblry_anntatns_res = Out_of_vocabulary(content)
+        
+        return {'content':content,
+                'Linguistic_annotations':lngstc_anntatns_res, 
+                "Tokenization" : tokenzn_res,
+                "Part_of_speech_tags" : POSW_res,
+                "Named_Entities" : nmd_entits_res,
+                "Out_of_vocabulary" : vcblry_anntatns_res
+                }
+
+
+
+class LinkNLP(Resource):
+    def get(self):
+        return {'about':'Enter your link'}
+    def post(self):
+        data = request.get_json()
+        url = data['url']
+        article = Article(url)
+        article.download()
+        article.parse()
+        content=article.text
+        lngstc_anntatns_res = Linguistic_annotations(content)
+        tokenzn_res = Tokenization(content)
+        POSW_res = Part_of_speech_tags(content)
+        nmd_entits_res = Named_Entities(content)
+        vcblry_anntatns_res = Out_of_vocabulary(content)
+        return {'content':content,
+                'Linguistic_annotations':lngstc_anntatns_res, 
+                "Tokenization" : tokenzn_res,
+                "Part_of_speech_tags" : POSW_res,
+                "Named_Entities" : nmd_entits_res,
+                "Out_of_vocabulary" : vcblry_anntatns_res
+                }
+
+

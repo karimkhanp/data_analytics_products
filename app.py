@@ -5,7 +5,7 @@ from sentiment_analysis import *
 from Base_py.base_file import *
 from flask_restful import Resource, Api
 from Base_py.NLP2novratio import summarize
-from SpacyFunc import Spacy_NLP_Func
+from SpacyFunc import Spacy_NLP_Func, ParaNLP, LinkNLP
 import datetime
 from Hatespeech import *
 import create_plot
@@ -148,6 +148,101 @@ def threshold_Create_Plot():
     return render_template('threshold_Create_Plot.html', **templateData,create_plot = create_plot_check)
 
 
+
+@app.route("/face_mask_detection", methods=['POST', 'GET'])
+def face_mask_detection():
+    import cv2
+    import numpy as np
+    import pandas as pd
+    import tensorflow as tf
+    from tensorflow.keras.models import model_from_json
+    import matplotlib.pyplot as plt
+    
+     
+    def load_model():
+        cwd = os.getcwd()
+        with open(cwd + '\\model.json', 'r') as json_file:
+            loaded_model_json = json_file.read()
+
+        loaded_model = model_from_json(loaded_model_json)
+        loaded_model.summary()
+        loaded_model.load_weights('weights.h5')
+        print("Model loaded...")
+        return loaded_model
+
+    # detect face mask:
+    def detect_face_mask(img):
+        
+        global loaded_model    
+        label_dict = {0:'without_mask', 1:'mask'}
+        color_dict = {0:(0, 0, 255), 1:(0, 255, 0)}
+        
+        dims = cascade.detectMultiScale(img)
+        
+        for (x,y,w,h) in dims:
+            
+            roi = img[y:y+h , x:x+w]
+            #roi = cv2.cvtColor(roi, 1) #cv2.BGR2GRAY
+            roi = cv2.resize(roi , dsize=(224, 224))
+            normalized = roi/255.0
+            reshaped=np.reshape(normalized,(1,224,224,3))
+            reshaped = np.vstack([reshaped])
+            result=loaded_model.predict(reshaped)
+            #print(Class.shape)
+                    
+            label=np.argmax(result,axis=1)[0]
+        
+            cv2.rectangle(img,(x,y),(x+w,y+h),color_dict[label],2)
+            cv2.rectangle(img,(x,y-40),(x+w,y),color_dict[label],-1)
+            cv2.putText(img, label_dict[label], (x, y-10),cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,255,255),2)
+        
+        return img
+    
+    
+    
+    if request.method == "POST":   
+        try:
+            file = request.files['file']
+            # -----------------
+            if file:
+                mp4file = request.files['file']
+                
+                x = (mp4file.filename).split(".")
+                x = x[1]
+                if x == 'mp4':
+                    mp4file.save(secure_filename(mp4file.filename))
+                    # Excution:
+                    # Loading video:
+                    video_path = mp4file # video
+                    harr_path = "Haarcascades/haarcascade_frontalface_default.xml"
+                    cascade = cv2.CascadeClassifier(harr_path)
+
+                    loaded_model = load_model()
+
+                    # Real-time processing
+                    cam = cv2.VideoCapture(video_path)
+                    width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
+                    height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+                    writer = cv2.VideoWriter('Result.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 20, (width, height))
+
+                    i=0
+                    while i<2000:
+                        _, frame = cam.read()
+                        frame = detect_face_mask(cv2.flip(frame , 1, 1))
+                        writer.write(frame)
+                        i+=1
+
+                    cam.release()
+                    writer.release()
+                    cv2.destroyAllWindows()
+
+        except KeyError:
+            pass
+
+    return render_template('face_mask_detection.html')
+
+
 @app.route('/post_API')
 def post_API():
     return render_template('API_Reference_Page.html')
@@ -170,8 +265,15 @@ API_Reference.add_resource(returnSummary, "/textsummarypage/summary")
 API_Reference.add_resource(ParaSenti,'/sentimentpage/para')
 API_Reference.add_resource(LinkSenti,'/sentimentpage/link')
 
+#SPACY ANALYSIS API
+API_Reference.add_resource(ParaNLP,'/ParaNLP/para')
+API_Reference.add_resource(LinkNLP,'/LinkNLP/link')
+
+#HATESPEECH ANALYSIS API
+API_Reference.add_resource(hatespeechapi,'/hatespeech/para')
+
+
+
 
 if __name__ == '__main__':
-    # app.run(host="0.0.0.0",port=80)
     app.run(debug=True)
-#     app.run(host="127.0.0.1", port=5000, debug=True)

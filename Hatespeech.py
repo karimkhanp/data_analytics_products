@@ -97,3 +97,20 @@ def Hate_speech_Func():
     
     return (text, prediction, category, max ,content)
     
+
+
+  
+  
+class hatespeechapi(Resource):
+    def get(self):
+        return {'about':'Enter your Paragraph'}
+    def post(self):
+        data = request.get_json()
+        content = data['paragraph']
+        text, prediction, category, max= get_input(content)
+        return {'text':text,
+                'prediction':prediction, 
+                "category" : category,
+                "max" : max
+                }
+
