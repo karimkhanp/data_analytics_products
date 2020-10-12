@@ -51,136 +51,183 @@ def Out_of_vocabulary(doc):
     
 def Spacy_NLP_Func():
     #calling the functions ........
+    global content
     content = ''
+    
+    lngstc_anntatns = ''
+    tokenzn= ''
+    POSW= ''
+    nmd_entits= ''
+    vcblry_anntatns= ''
+    NLP= ''
+    
+    
     try:
         geturl = request.form.get('url')
-        if geturl:
-            url = geturl
-            article = Article(url)
-            article.download()
-            article.parse()
-            text = article.text
-            content = text
-            try:
-                lngstc_anntatns = request.form.get('Linguistic_Annotations1')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                tokenzn = request.form.get('Tokenization1')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                POSW = request.form.get('Parts_of_Speech_Words1')
-            except UnboundLocalError:
-                pass
-            try:
-                nmd_entits = request.form.get('Named_Entities1')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                vcblry_anntatns = request.form.get('Vocabulary_Annotations1')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                NLP = request.form.get('NLP1')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-    except UnboundLocalError:
-        pass
+    except Exception as e:
+        print(e)
+    
     try:
         gettext = request.form.get('text')
-        content = gettext
-        if gettext:
-            testlist = len([val for val in gettext.split('.')])
-
-            try:
-                lngstc_anntatns = request.form.get('Linguistic_Annotations2')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                tokenzn = request.form.get('Tokenization2')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                POSW = request.form.get('Parts_of_Speech_Words2')
-            except UnboundLocalError:
-                pass
-            try:
-                nmd_entits = request.form.get('Named_Entities2')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                vcblry_anntatns = request.form.get('Vocabulary_Annotations2')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                NLP = request.form.get('NLP2')
-            except UnboundLocalError:
-                pass
-    except UnboundLocalError:
-        pass
+    except Exception as e:
+        print(e)
+        
     try:
         file = request.files['file']
-        # -----------------
-        if file:
-            pdf = request.files['file']
-            # y = pdf.read().decode('utf-8')
-            # pdf.save(secure_filename(pdf.filename))
-            x = (pdf.filename).split(".")
-            x = x[1]
-            if x == 'pdf':
-                pdf.save(secure_filename(pdf.filename))
-                text = textract.process(pdf.filename).decode('utf-8')
-                # print(type(text))
-                print(text)
-                content = text.replace('\n', ' ')
-            else:
-                y = pdf.read().decode('utf-8')
-                content = y
-            try:
-                lngstc_anntatns = request.form.get('Linguistic_Annotations3')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                tokenzn = request.form.get('Tokenization3')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                POSW = request.form.get('Parts_of_Speech_Words3')
-            except UnboundLocalError:
-                pass
-            try:
-                nmd_entits = request.form.get('Named_Entities3')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                vcblry_anntatns = request.form.get('Vocabulary_Annotations3')
-            except UnboundLocalError:
-                pass
-            # ---------------------------
-            try:
-                NLP = request.form.get('NLP3')
-            except UnboundLocalError:
-                pass
-    except KeyError:
-        pass
+    except Exception as e:
+        print(e)
+        
+    
+    if geturl :
+        try:
+            geturl = request.form.get('url')
+            if geturl:
+                print("Got Url")
+                url = geturl
+                article = Article(url)
+                article.download()
+                article.parse()
+                text = article.text
+                content = text
+                # print(content)
+                try:
+                    lngstc_anntatns = request.form.get('Linguistic_Annotations1')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    tokenzn = request.form.get('Tokenization1')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    POSW = request.form.get('Parts_of_Speech_Words1')
+                except UnboundLocalError:
+                    pass
+                try:
+                    nmd_entits = request.form.get('Named_Entities1')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    vcblry_anntatns = request.form.get('Vocabulary_Annotations1')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    NLP = request.form.get('NLP1')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+        except UnboundLocalError:
+            pass
+        
+    elif gettext :
+        try:
+            gettext = request.form.get('text')
+            content = gettext
+            if gettext:
+                print ("Entered the text.... ")
+                testlist = len([val for val in gettext.split('.')])
 
+                try:
+                    lngstc_anntatns = request.form.get('Linguistic_Annotations2')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    tokenzn = request.form.get('Tokenization2')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    POSW = request.form.get('Parts_of_Speech_Words2')
+                except UnboundLocalError:
+                    pass
+                try:
+                    nmd_entits = request.form.get('Named_Entities2')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    vcblry_anntatns = request.form.get('Vocabulary_Annotations2')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    NLP = request.form.get('NLP2')
+                except UnboundLocalError:
+                    pass
+        except UnboundLocalError:
+            pass
+        
+        
+    elif file:
+        try:
+            file = request.files['file']
+            # -----------------
+            if file:
+                print ("Entered the FIle.... ")
+                pdf = request.files['file']
+                # y = pdf.read().decode('utf-8')
+                # pdf.save(secure_filename(pdf.filename))
+                x = (pdf.filename).split(".")
+                x = x[1]
+                if x == 'pdf':
+                    pdf.save(secure_filename(pdf.filename))
+                    text = textract.process(pdf.filename).decode('utf-8')
+                    # print(type(text))
+                    print(text)
+                    content = text.replace('\n', ' ')
+                else:
+                    y = pdf.read().decode('utf-8')
+                    content = y
+                try:
+                    lngstc_anntatns = request.form.get('Linguistic_Annotations3')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    tokenzn = request.form.get('Tokenization3')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    POSW = request.form.get('Parts_of_Speech_Words3')
+                except UnboundLocalError:
+                    pass
+                try:
+                    nmd_entits = request.form.get('Named_Entities3')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    vcblry_anntatns = request.form.get('Vocabulary_Annotations3')
+                except UnboundLocalError:
+                    pass
+                # ---------------------------
+                try:
+                    NLP = request.form.get('NLP3')
+                except UnboundLocalError:
+                    pass
+        except KeyError:
+            pass
+
+        print(content)
+        
+    
     if len(content) == 0:
         flash('Please select any input channel and fill data')
         return redirect(url_for('textsummary'))
 
+    lngstc_anntatns_res= ''
+    tokenzn_res= ''
+    POSW_res= ''
+    nmd_entits_res= ''
+    vcblry_anntatns_res= ''
+    NLP_res= ''
+    
+    
     if lngstc_anntatns:
         lngstc_anntatns_res = Linguistic_annotations(content)
     else:

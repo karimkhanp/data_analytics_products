@@ -100,6 +100,7 @@ def sentimentpage_post():
 def spacy():
     return render_template('Spacy_get.html')
 
+
 @app.route('/Spacy_post' , methods=['POST'])
 def spacy_post():
     lngstc_anntatns_res,tokenzn_res,POSW_res,nmd_entits_res,vcblry_anntatns_res,content = Spacy_NLP_Func()
@@ -124,6 +125,8 @@ def dataset_info():
     file = path + os.path.join('\\static\\images', 'category_analysis_hobbies.png')
     print(file)
     return render_template('dataset_info.html', user_image= file)
+
+
 
 @app.route("/threshold_Create_Plot", methods=['POST', 'GET'])
 def threshold_Create_Plot():

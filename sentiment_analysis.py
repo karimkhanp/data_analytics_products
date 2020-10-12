@@ -97,6 +97,9 @@ def Sentiment_Analysis():
     except KeyError:
         pass
 
+
+    print("content = ",content)
+
     if len(content) == 0:
         flash('Please select any input channel and fill data')
         return redirect(url_for('textsummary'))
@@ -143,6 +146,8 @@ def Sentiment_Analysis():
         sntc = 0
     wordres = [val.replace('\n', ' ') for val in wordres]
     print ("test1 =",test1)
+    
+    
     return wordres, sntc, best, sen, test1, paragraph, sentiment, percent2, displaysentiment
 
 
