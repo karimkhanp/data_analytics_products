@@ -207,7 +207,7 @@ sentiment analysis algorithm,sentiment analysis analytics vidhya,sentiment analy
                 <div>
                     <div style="text-align:center;">
                         <div style="margin-top:5% ;padding-bottom: 20px; " class="heading-div-1 text-center">
-                            {% if request.form['submit'] == 'Get Sentiment' %}
+                            {% if (submit) == "submit" %}
                                 <button style="margin-bottom: 40px; background-color: #e36937; " class="btn-block btn btn-warning">
                                     <a href="#textsentresult">
                                         <h3 style="">Result - >
@@ -622,7 +622,7 @@ sentiment analysis algorithm,sentiment analysis analytics vidhya,sentiment analy
     </div>
 </div>
 <div class = "container">
-{% if request.form['submit'] == 'Get Sentiment' %}
+{% if submit == "submit" %}
     <div class="container" style="padding-top:5%">
         <div class="heading-div-1 text-center">
         <h2>Results of Summarization</h2>

@@ -10,6 +10,16 @@ import datetime
 from Hatespeech import *
 import create_plot
 import os
+import cv2
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from tensorflow.keras.models import model_from_json
+import matplotlib.pyplot as plt 
+
+
+
+
 
 app = Flask(__name__)
 app.register_blueprint(twitterapp, url_prefix='/twitteranalytics')
@@ -17,6 +27,13 @@ app.register_blueprint(textsummary, url_prefix='/textsummary')
 
 app.config['SECRET_KEY'] = 'b58f1ad3ab27a913c64246143682ebf5'
 API_Reference = Api(app)
+
+cwd = os.getcwd()
+UPLOAD_FOLDER =cwd + '\\static\\Files'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+
 
 
 @app.route('/googlec41563d4fdeb5c37', methods=['POST'])
@@ -94,7 +111,7 @@ def sentimentpage_post():
     print ("percent2 = ",percent2)
     return render_template('post_mainsentimentpage_final.html', wordres=wordres, sntc=sntc, best=best, sen=sen, test1=test1,
                            paragraph=paragraph, sentiment=sentiment, percent=percent2,
-                           displaysentiment=displaysentiment)
+                           displaysentiment=displaysentiment,submit="submit")
 
 @app.route('/Spacy' , methods=['GET'])
 def spacy():
@@ -154,17 +171,12 @@ def threshold_Create_Plot():
 
 @app.route("/face_mask_detection", methods=['POST', 'GET'])
 def face_mask_detection():
-    import cv2
-    import numpy as np
-    import pandas as pd
-    import tensorflow as tf
-    from tensorflow.keras.models import model_from_json
-    import matplotlib.pyplot as plt
+
     
      
     def load_model():
         cwd = os.getcwd()
-        with open(cwd + '\\model.json', 'r') as json_file:
+        with open('model.json', 'r') as json_file:
             loaded_model_json = json_file.read()
 
         loaded_model = model_from_json(loaded_model_json)
@@ -203,7 +215,10 @@ def face_mask_detection():
     
     
     
-    if request.method == "POST":   
+    if request.method == "POST": 
+        import cv2
+        cwd = os.getcwd()
+        uploads_dir = cwd + '/static/Files'  
         try:
             file = request.files['file']
             # -----------------
@@ -213,11 +228,22 @@ def face_mask_detection():
                 x = (mp4file.filename).split(".")
                 x = x[1]
                 if x == 'mp4':
-                    mp4file.save(secure_filename(mp4file.filename))
+
+
+                    uploaded_file = os.path.join(uploads_dir, secure_filename(mp4file.filename))
+                    print(os.path.join(uploads_dir, secure_filename(mp4file.filename)))
+                    mp4file.save(os.path.join(uploads_dir, secure_filename(mp4file.filename)))
+
+
+                    mp4file.save(secure_filename(uploaded_file))
                     # Excution:
                     # Loading video:
-                    video_path = mp4file # video
-                    harr_path = "Haarcascades/haarcascade_frontalface_default.xml"
+
+
+
+
+                    video_path = uploaded_file # video
+                    harr_path = "haarcascade_frontalface_default.xml"
                     cascade = cv2.CascadeClassifier(harr_path)
 
                     loaded_model = load_model()
@@ -239,7 +265,7 @@ def face_mask_detection():
                     cam.release()
                     writer.release()
                     cv2.destroyAllWindows()
-
+                    print("Everything Done....")
         except KeyError:
             pass
 
